@@ -3,6 +3,7 @@
     Created on : Nov 26, 2022, 10:30:00 PM
     Author     : ADMIN
 --%>
+<%@page import="dao.ComboDishesDAO"%>
 <%@page import="model.ComboDishes"%>
 <%@page import="dao.DishesDAO"%>
 <%@page import="java.util.ArrayList"%>
@@ -21,10 +22,16 @@
         String isCombo = "false";
         String tenMon = request.getParameter("tenMon");
         DishesDAO dao = new DishesDAO();
+        ComboDishesDAO dao1 = new ComboDishesDAO();
         isCombo = (String) session.getAttribute("isCombo");
         if (isCombo == "true") {
-            listComboDishes = (ArrayList<ComboDishes>)session.getAttribute("listComboDishes");
-            listDishes = null;
+        if (tenMon == null) {
+                tenMon = "";
+                listComboDishes = dao1.getAllComboDishes();
+            }
+            else {
+                listComboDishes = dao1.searchComboDishes(tenMon);
+            }
         } else {
             if (tenMon == null) {
                 tenMon = "";
@@ -33,7 +40,6 @@
                 listDishes = dao.searchDishes(tenMon);
             }
         }
-        session.setAttribute("listTable", listDishes);
     %> 
 
     <body>
@@ -130,7 +136,7 @@
                             <td><a class="btn btn-success btn-sm" href="error.jsp">Hủy</a></td> 
                         </tr> 
                         <%}%> 
-                        
+
                     </tbody> 
                 </table>
                 <button class="btn btn-primary" style="margin-top: 10px" onclick="window.top.location.href = 'gdConfirm.jsp'"> Tiếp tục </button> 
