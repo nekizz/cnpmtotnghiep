@@ -16,7 +16,7 @@
         <title>Giao diện chọn món</title>
     </head>
 
-    <%
+    <%  int soLuong =0;
         ArrayList<Dishes> listDishes = null;
         ArrayList<ComboDishes> listComboDishes = null;
         String isCombo = "false";
@@ -33,6 +33,7 @@
                 listComboDishes = dao1.searchComboDishes(tenMon);
             }
         } else {
+            soLuong =0;
             if (tenMon == null) {
                 tenMon = "";
                 listDishes = dao.getAllDishes();
@@ -87,9 +88,9 @@
                         <td><%=listDishes.get(i).getName()%></td> 
                         <td><%=listDishes.get(i).getPrice()%></td> 
                         <td><%=listDishes.get(i).getStatus()%></td> 
-                        <td><input type="number" id="quantity" name="quantity" min="1" max="5"></td> 
+                        <td><input type="number" id="quantity" name="quantity" min="0" max="500"></td> 
                         <td><a class="btn btn-success btn-sm" 
-                               href="gdConfirm.jsp?idkh=<%=listDishes.get(i).getIdDishes()%>">Chọn</a></td> 
+                               href="gdConfirm.jsp?idkh=<%=listDishes.get(i).getIdDishes()%>&soLuong=<%=soLuong%>">Chọn</a></td> 
                     </tr> 
                     <%}%> 
                     <%
@@ -102,7 +103,7 @@
                         <td><%=listComboDishes.get(i).getName()%></td> 
                         <td><%=listComboDishes.get(i).getPrice()%></td> 
                         <td><%=listComboDishes.get(i).getStatus()%></td> 
-                        <td><input type="number" id="quantity" name="quantity" min="1" max="5"></td> 
+                        <td><input type="number" id="quantity" value="<%=soLuong%>" name="quantity" min="0" max="500"></td> 
                         <td><a class="btn btn-success btn-sm" 
                                href="gdConfirm.jsp?idkh=<%=listComboDishes.get(i).getIdComboDishes()%>">Chọn</a></td> 
                     </tr> 
