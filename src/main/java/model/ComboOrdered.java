@@ -6,17 +6,19 @@ package model;
 
 public class ComboOrdered {
    private int id;
+   private int quantity;
    private float price, discount, totalAmount;
    private String description;
    private ComboDishes comboDishes;
 
-    public ComboOrdered(int id, float price, float discount, float totalAmount, String description, ComboDishes comboDishes) {
+    public ComboOrdered(int id, float price, float discount, float totalAmount, String description, ComboDishes comboDishes, int quantity) {
         this.id = id;
         this.price = price;
         this.discount = discount;
         this.totalAmount = totalAmount;
         this.description = description;
         this.comboDishes = comboDishes;
+        this.quantity = quantity;
     }
 
     public int getId() {
@@ -65,6 +67,14 @@ public class ComboOrdered {
 
     public void setComboDishes(ComboDishes comboDishes) {
         this.comboDishes = comboDishes;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
    
 }

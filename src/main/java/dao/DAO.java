@@ -20,7 +20,7 @@ public class DAO {
             String dbClass = "com.mysql.cj.jdbc.Driver";
             try {
                 Class.forName(dbClass);
-                con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/test", "root", "123456");
+                con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/cnpm", "root", "123456");
                 if (con != null) {
                     System.out.println("Connected to the database!");
                 } else {

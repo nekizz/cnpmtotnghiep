@@ -9,16 +9,18 @@ import java.util.ArrayList;
 public class BookedTable {
     private int id;
     private String note;
+    private boolean isCheckIn;
     private Table table;
     private ArrayList<ComboOrdered> comboOrdered;
     private ArrayList<DishesOrdered> dishesOrdered;
 
-    public BookedTable(int id, String note, Table table, ArrayList<ComboOrdered> comboOrdered, ArrayList<DishesOrdered> dishesOrdered) {
+    public BookedTable(int id, String note, Table table, ArrayList<ComboOrdered> comboOrdered, ArrayList<DishesOrdered> dishesOrdered, boolean isCheckIn) {
         this.id = id;
         this.note = note;
         this.table = table;
         this.comboOrdered = comboOrdered;
         this.dishesOrdered = dishesOrdered;
+        this.isCheckIn = isCheckIn;
     }
 
     public int getId() {
@@ -60,5 +62,15 @@ public class BookedTable {
     public void setDishesOrdered(ArrayList<DishesOrdered> dishesOrdered) {
         this.dishesOrdered = dishesOrdered;
     }
+
+    public boolean getIsCheckIn() {
+        return isCheckIn;
+    }
+
+    public void setIsCheckIn(boolean isCheckIn) {
+        this.isCheckIn = isCheckIn;
+    }
+    
+    
      
 }

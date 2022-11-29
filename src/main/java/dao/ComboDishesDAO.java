@@ -29,12 +29,12 @@ public class ComboDishesDAO extends DAO{
                 if(kq == null) kq = new ArrayList<ComboDishes>();
                 ComboDishes cb = new ComboDishes();
                 
-                cb.setIdComboDishes(rs.getString("IdComboDishes"));
+                cb.setIdComboDishes(rs.getString("IDComboDishes"));
                 cb.setName(rs.getString("Name"));
                 cb.setStatus(rs.getString("Status"));
                 cb.setPrice(rs.getFloat("Price"));
                 cb.setDiscount(rs.getFloat("Discount"));
-                cb.setNote(rs.getString("Description"));
+                cb.setNote(rs.getString("Note"));
                 //nam hoc
                 kq.add(cb);
             }
@@ -57,12 +57,12 @@ public class ComboDishesDAO extends DAO{
                 if(kq == null) kq = new ArrayList<ComboDishes>();
                 ComboDishes cb = new ComboDishes();
                 
-                cb.setIdComboDishes(rs.getString("IdComboDishes"));
+                cb.setIdComboDishes(rs.getString("IDComboDishes"));
                 cb.setName(rs.getString("Name"));
                 cb.setStatus(rs.getString("Status"));
                 cb.setPrice(rs.getFloat("Price"));
                 cb.setDiscount(rs.getFloat("Discount"));
-                cb.setNote(rs.getString("Description"));
+                cb.setNote(rs.getString("Note"));
                 //nam hoc
                 kq.add(cb);
             }
@@ -75,10 +75,9 @@ public class ComboDishesDAO extends DAO{
     
     public static void main(String[] args) {
         ComboDishesDAO dao = new ComboDishesDAO();
-        ArrayList<ComboDishes> l= null;
-        l = dao.searchComboDishes("COMBO1");
+        ArrayList<ComboDishes> l = new ArrayList<>();
+        l = dao.getAllComboDishes();
         System.out.println(l.size());
     }
-
 }
 
