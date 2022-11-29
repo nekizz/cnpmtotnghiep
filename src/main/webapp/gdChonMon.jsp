@@ -32,14 +32,15 @@
             else {
                 listComboDishes = dao1.searchComboDishes(tenMon);
             }
+            session.setAttribute("listComboDishes", listComboDishes);
         } else {
-            soLuong =0;
             if (tenMon == null) {
                 tenMon = "";
                 listDishes = dao.getAllDishes();
             } else {
                 listDishes = dao.searchDishes(tenMon);
             }
+            session.setAttribute("listComboDishes", listComboDishes);
         }
     %> 
 
@@ -88,9 +89,9 @@
                         <td><%=listDishes.get(i).getName()%></td> 
                         <td><%=listDishes.get(i).getPrice()%></td> 
                         <td><%=listDishes.get(i).getStatus()%></td> 
-                        <td><input type="number" id="quantity" name="quantity" min="0" max="500"></td> 
+                        <td><input type="number" id="quantity" value="<%=soLuong%>" name="quantity" min="0" max="500"></td> 
                         <td><a class="btn btn-success btn-sm" 
-                               href="gdConfirm.jsp?idkh=<%=listDishes.get(i).getIdDishes()%>&soLuong=<%=soLuong%>">Chọn</a></td> 
+                               href="doChonMon.jsp?idkh=<%=listDishes.get(i).getIdDishes()%>&soLuong=<%=soLuong%>">Chọn</a></td> 
                     </tr> 
                     <%}%> 
                     <%
@@ -105,12 +106,11 @@
                         <td><%=listComboDishes.get(i).getStatus()%></td> 
                         <td><input type="number" id="quantity" value="<%=soLuong%>" name="quantity" min="0" max="500"></td> 
                         <td><a class="btn btn-success btn-sm" 
-                               href="gdConfirm.jsp?idkh=<%=listComboDishes.get(i).getIdComboDishes()%>">Chọn</a></td> 
+                               href="doChonCombo.jsp?idkh=<%=listComboDishes.get(i).getIdComboDishes()%>&soLuong=<%=soLuong%>">Chọn</a></td> 
                     </tr> 
                     <%}%> 
                 </tbody> 
             </table> 
-
 
             <div style="margin-top: 150px">
                 <h5>Món đã đặt:</h5>
