@@ -3,6 +3,7 @@
     Created on : Nov 26, 2022, 10:30:00 PM
     Author     : ADMIN
 --%>
+<%@page import="model.ComboOrdered"%>
 <%@page import="dao.ComboDishesDAO"%>
 <%@page import="model.ComboDishes"%>
 <%@page import="dao.DishesDAO"%>
@@ -11,12 +12,22 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+    <script>
+
+        function themDV(idFood) {
+            var soluong = 0;
+            soLuong = document.getElementById("quantity" + idFood).value;
+            window.location.replace("doChonMon.jsp?idMon=" + idFood + "&soLuong=" + soLuong);
+        }
+
+
+    </script>
     <head>
         <%@include file ="header.jsp" %> 
         <title>Giao diện chọn món</title>
     </head>
 
-    <%  int soLuong =0;
+    <%  int soLuong = 0;
         ArrayList<Dishes> listDishes = null;
         ArrayList<ComboDishes> listComboDishes = null;
         String isCombo = "false";
@@ -24,12 +35,12 @@
         DishesDAO dao = new DishesDAO();
         ComboDishesDAO dao1 = new ComboDishesDAO();
         isCombo = (String) session.getAttribute("isCombo");
+        ArrayList<ComboOrdered> listComboOrdered = (ArrayList<ComboOrdered>) session.getAttribute("listComboOrdered");
         if (isCombo == "true") {
-        if (tenMon == null) {
+            if (tenMon == null) {
                 tenMon = "";
                 listComboDishes = dao1.getAllComboDishes();
-            }
-            else {
+            } else {
                 listComboDishes = dao1.searchComboDishes(tenMon);
             }
             session.setAttribute("listComboDishes", listComboDishes);
@@ -82,6 +93,7 @@
                     <%
                         if (listDishes != null)
                             for (int i = 0; i < listDishes.size(); i++) {
+                                String funcThem = "\"themDV('" + listDishes.get(i).getIdDishes().toString() + "')\"";
                     %> 
                     <tr> 
                         <th scope="row"><%=(i + 1)%></th> 
@@ -89,9 +101,11 @@
                         <td><%=listDishes.get(i).getName()%></td> 
                         <td><%=listDishes.get(i).getPrice()%></td> 
                         <td><%=listDishes.get(i).getStatus()%></td> 
-                        <td><input type="number" id="quantity" value="<%=soLuong%>" name="quantity" min="0" max="500"></td> 
-                        <td><a class="btn btn-success btn-sm" 
-                               href="doChonMon.jsp?idkh=<%=listDishes.get(i).getIdDishes()%>&soLuong=<%=soLuong%>">Chọn</a></td> 
+                        <td><input type="number" id=<%="quantity" + listDishes.get(i).getIdDishes()%> value="<%=soLuong%>" name="quantity" min="0" max="500"></td> 
+                        <td>
+                            <button class="btn btn-primary" style="margin-top: 10px; background-color: forestgreen" onclick=<%=funcThem%>> Chọn </button>
+                        </td> 
+
                     </tr> 
                     <%}%> 
                     <%
@@ -105,8 +119,7 @@
                         <td><%=listComboDishes.get(i).getPrice()%></td> 
                         <td><%=listComboDishes.get(i).getStatus()%></td> 
                         <td><input type="number" id="quantity" value="<%=soLuong%>" name="quantity" min="0" max="500"></td> 
-                        <td><a class="btn btn-success btn-sm" 
-                               href="doChonCombo.jsp?idkh=<%=listComboDishes.get(i).getIdComboDishes()%>&soLuong=<%=soLuong%>">Chọn</a></td> 
+                        <td><button class="btn btn-primary" style="margin-top: 10px; background-color: forestgreen" onclick="window.top.location.href = 'gdConfirm.jsp'"> Chọn </button></td> 
                     </tr> 
                     <%}%> 
                 </tbody> 
@@ -126,14 +139,14 @@
                     </thead> 
                     <tbody>                     
                         <%
-                            if (listDishes != null)
-                                for (int i = 0; i < listDishes.size(); i++) {
+                            if (listComboOrdered != null)
+                                for (int i = 0; i < listComboOrdered.size(); i++) {
                         %> 
                         <tr> 
                             <th scope="row"><%=(i + 1)%></th> 
-                            <td><%=listDishes.get(i).getName()%></td> 
-                            <td><%=listDishes.get(i).getPrice()%></td> 
-                            <td><%=listDishes.get(i).getStatus()%></td> 
+                            <td><%=listComboOrdered.get(i).getComboDishes().getName()%></td> 
+                            <td><%=listComboOrdered.get(i).getTotalAmount()%></td> 
+                            <td><%=listComboOrdered.get(i).getQuantity()%></td> 
                             <td><a class="btn btn-success btn-sm" href="error.jsp">Hủy</a></td> 
                         </tr> 
                         <%}%> 
@@ -145,3 +158,6 @@
         </div> 
     </body> 
 </html>
+
+
+

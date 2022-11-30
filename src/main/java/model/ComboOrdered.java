@@ -11,8 +11,7 @@ public class ComboOrdered {
    private String description;
    private ComboDishes comboDishes;
 
-    public ComboOrdered(int id, float price, float discount, float totalAmount, String description, ComboDishes comboDishes, int quantity) {
-        this.id = id;
+    public ComboOrdered(float price, float discount, float totalAmount, String description, ComboDishes comboDishes, int quantity) {
         this.price = price;
         this.discount = discount;
         this.totalAmount = totalAmount;
