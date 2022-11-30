@@ -13,24 +13,30 @@
 <!DOCTYPE html>
 <html>
     <script>
-
         function themDV(idFood) {
             var soluong = 0;
             soLuong = document.getElementById("quantity" + idFood).value;
             window.location.replace("doChonMon.jsp?idMon=" + idFood + "&soLuong=" + soLuong);
         }
-
-
     </script>
     <head>
         <%@include file ="header.jsp" %> 
         <title>Giao diện chọn món</title>
     </head>
 
-    <%  int soLuong = 0;
+    <%
+        String maBan = (String) request.getParameter("idkh");
+        if (maBan == null) {
+            response.sendRedirect("gdChinhNV.jsp");
+            return;
+        }
+        session.setAttribute("maBan", maBan);
+
+        int soLuong = 0;
         ArrayList<Dishes> listDishes = null;
         ArrayList<ComboDishes> listComboDishes = null;
         String isCombo = "false";
+
         String tenMon = request.getParameter("tenMon");
         DishesDAO dao = new DishesDAO();
         ComboDishesDAO dao1 = new ComboDishesDAO();
