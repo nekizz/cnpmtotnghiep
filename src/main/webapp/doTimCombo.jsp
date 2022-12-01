@@ -9,9 +9,15 @@
 <%@page import="dao.ComboDishesDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
- ComboDishesDAO dao = new ComboDishesDAO();
- ArrayList<ComboDishes> listComboDishes = dao.getAllComboDishes();
- session.setAttribute("isCombo", String.valueOf(true));
- session.setAttribute("listComboDishes", listComboDishes);
- response.sendRedirect("gdChonMon.jsp");
+    String maBan = (String) session.getAttribute("idTable");
+    if (maBan == null) {
+        response.sendRedirect("gdChonBan.jsp");
+        return;
+    }
+    String url = "gdChonMon.jsp?idTable="+ maBan;
+    ComboDishesDAO dao = new ComboDishesDAO();
+    ArrayList<ComboDishes> listComboDishes = dao.getAllComboDishes();
+    session.setAttribute("isCombo", String.valueOf(true));
+    session.setAttribute("listComboDishes", listComboDishes);
+    response.sendRedirect(url);
 %>

@@ -4,52 +4,73 @@
     Author     : ADMIN
 --%>
 
-<%@page import="model.ComboOrdered"%>
-<%@page import="model.ComboDishes"%>
+
+<%@page import="model.DishesOrdered"%>
+<%@page import="model.Dishes"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     String idFood = request.getParameter("idMon");
     String soLuong = request.getParameter("soLuong");
-    String maBan = (String)session.getAttribute("maBan");
-    ArrayList<ComboOrdered> listComboOrdered = new ArrayList<>();
+    String maBan = (String) session.getAttribute("idTable");
+
     if (maBan == "") {
         response.sendRedirect("gdChinhNV.jsp");
         return;
     }
-    String url = "gdChonMon.jsp?idkh" + maBan;
+    String url = "gdChonMon.jsp?idTable=" + maBan;
     if (idFood == "" && soLuong == "") {
-        response.sendRedirect(url);
+        response.sendRedirect("gdChonBan.jsp");
         return;
     }
-    String isCombo = (String) session.getAttribute("isCombo");
-    if (isCombo == "true") {
-        ArrayList<ComboDishes> listCombo = (ArrayList<ComboDishes>) session.getAttribute("listComboDishes");
 
-        if (listCombo == null) {
+    String isCombo = (String) session.getAttribute("isCombo");
+    if (isCombo == null) {
+        response.sendRedirect("error.jsp");
+        return;
+    }
+    if (isCombo == "false") {
+        ArrayList<Dishes> listDishes = (ArrayList<Dishes>) session.getAttribute("listDishes");
+        if (listDishes == null) {
+            response.sendRedirect("gdChonBan.jsp");
             return;
         }
-        for (ComboDishes co : listCombo) {
-            if (co.getIdComboDishes().contains(idFood)) {
-                float totalAmount = co.getPrice() - co.getDiscount();
-                int soLuongInt = Integer.parseInt(soLuong);
-                listComboOrdered.add(new ComboOrdered(co.getPrice(), co.getDiscount(), totalAmount, co.getNote(), co, soLuongInt));
-                session.setAttribute("listComboOrdered", listComboOrdered);
+
+        for (Dishes co : listDishes) {
+            if (co.getIdDishes().contains(idFood)) {
+                ArrayList<DishesOrdered> listDishesOrdered = null;
+                listDishesOrdered = (ArrayList<DishesOrdered>) session.getAttribute("listDishesOrdered");
+                if (listDishesOrdered == null) {
+                    listDishesOrdered = new ArrayList<>();
+                    float totalAmount = co.getPrice() - co.getDiscount();
+                    int soLuongInt = Integer.parseInt(soLuong);
+                    listDishesOrdered.add(new DishesOrdered(soLuongInt, co.getPrice(), totalAmount, co.getDiscount(), co.getDescription(), co));
+                    session.setAttribute("listDishesOrdered", listDishesOrdered);
+//                    response.sendRedirect(url);
+//                    return;
+                } else {
+                    int soLuongInt = Integer.parseInt(soLuong);
+                    for (DishesOrdered d : listDishesOrdered) {
+                        if (d.getDishes().equals(co)) {
+                            int oldQuantity = d.getQuantity();
+                            d.setQuantity(oldQuantity + soLuongInt);
+                            //set total mount nua
+                            session.setAttribute("listDishesOrdered", listDishesOrdered);
+                            response.sendRedirect(url);
+                            return;
+                        }
+                    }
+                    float totalAmount = co.getPrice() - co.getDiscount();
+                    listDishesOrdered.add(new DishesOrdered(soLuongInt, co.getPrice(), totalAmount, co.getDiscount(), co.getDescription(), co));
+                    session.setAttribute("listDishesOrdered", listDishesOrdered);
+                    response.sendRedirect(url);
+                    return;
+                }
             }
         }
     }
 %>
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Start Page</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    </head>
-    <body>
-        <h1>?Minhy</h1>
-    </body>
-</html>
 
-<script>
-</script>
+
+
 

@@ -3,6 +3,7 @@
     Created on : Nov 26, 2022, 10:30:00 PM
     Author     : ADMIN
 --%>
+<%@page import="model.DishesOrdered"%>
 <%@page import="model.ComboOrdered"%>
 <%@page import="dao.ComboDishesDAO"%>
 <%@page import="model.ComboDishes"%>
@@ -18,6 +19,13 @@
             soLuong = document.getElementById("quantity" + idFood).value;
             window.location.replace("doChonMon.jsp?idMon=" + idFood + "&soLuong=" + soLuong);
         }
+        
+        
+        function themDVCombo(idFood) {
+            var soluong = 0;
+            soLuong = document.getElementById("quantity" + idFood).value;
+            window.location.replace("doChonCombo.jsp?idCombo=" + idFood + "&soLuong=" + soLuong);
+        }
     </script>
     <head>
         <%@include file ="header.jsp" %> 
@@ -25,29 +33,36 @@
     </head>
 
     <%
-        String maBan = (String) request.getParameter("idkh");
-        if (maBan == null) {
+        String maBan = request.getParameter("idTable");
+        if (maBan == "") {
             response.sendRedirect("gdChinhNV.jsp");
             return;
         }
-        session.setAttribute("maBan", maBan);
+        session.setAttribute("idTable", maBan);
 
         int soLuong = 0;
-        ArrayList<Dishes> listDishes = null;
-        ArrayList<ComboDishes> listComboDishes = null;
+        String url = "gdChonMon.jsp?idTable="+ maBan;
         String isCombo = "false";
-
-        String tenMon = request.getParameter("tenMon");
+        
         DishesDAO dao = new DishesDAO();
         ComboDishesDAO dao1 = new ComboDishesDAO();
+        
+        ArrayList<Dishes> listDishes = null;
+        ArrayList<ComboDishes> listComboDishes = null;
+        
+
+        String tenMon = request.getParameter("tenMon");
         isCombo = (String) session.getAttribute("isCombo");
+        ArrayList<DishesOrdered> listDishesOrdered = (ArrayList<DishesOrdered>) session.getAttribute("listDishesOrdered");
         ArrayList<ComboOrdered> listComboOrdered = (ArrayList<ComboOrdered>) session.getAttribute("listComboOrdered");
+        
         if (isCombo == "true") {
             if (tenMon == null) {
                 tenMon = "";
                 listComboDishes = dao1.getAllComboDishes();
             } else {
                 listComboDishes = dao1.searchComboDishes(tenMon);
+                
             }
             session.setAttribute("listComboDishes", listComboDishes);
         } else {
@@ -59,7 +74,9 @@
             }
             session.setAttribute("listComboDishes", listComboDishes);
         }
-    %> 
+        
+        session.setAttribute("isCombo", isCombo);
+    %>
 
     <body>
         <div class="container"> 
@@ -70,7 +87,7 @@
                 <button class="btn btn-primary" onclick="window.top.location.href = 'doTimCombo.jsp'"> Combo </button> 
             </div>
 
-            <form name="timkhachhang" action="gdChonMon.jsp" method="post" style="margin-top: 10px"> 
+            <form name="timkhachhang" action=<%=url%> method="post" style="margin-top: 10px"> 
                 <div class="text-center row"> 
                     <div class="col-sm-6 col-md-2"> 
                     </div> 
@@ -78,7 +95,7 @@
                          justify-content: flex-end"> 
                         <input type="text" name="tenMon" value="<%=tenMon%>" class="form-control" id="tenMon" placeholder="Nhập tên..." style="width: 30%"></div> 
                     <div class="col-6 col-md-2"> 
-                        <button class="btn btn-primary" type="submit">Tìm kiếm </button> 
+                            <button class="btn btn-primary" type="submit"> Tìm kiếm </button> 
                     </div>            
                 </div> 
             </form> 
@@ -100,7 +117,9 @@
                         if (listDishes != null)
                             for (int i = 0; i < listDishes.size(); i++) {
                                 String funcThem = "\"themDV('" + listDishes.get(i).getIdDishes().toString() + "')\"";
+                                
                     %> 
+              
                     <tr> 
                         <th scope="row"><%=(i + 1)%></th> 
                         <td><%=listDishes.get(i).getIdDishes()%></td> 
@@ -114,9 +133,11 @@
 
                     </tr> 
                     <%}%> 
+                    
                     <%
                         if (listComboDishes != null)
                             for (int i = 0; i < listComboDishes.size(); i++) {
+                            String funcThemCombo = "\"themDVCombo('" + listComboDishes.get(i).getIdComboDishes().toString() + "')\"";
                     %> 
                     <tr> 
                         <th scope="row"><%=(i + 1)%></th> 
@@ -124,8 +145,8 @@
                         <td><%=listComboDishes.get(i).getName()%></td> 
                         <td><%=listComboDishes.get(i).getPrice()%></td> 
                         <td><%=listComboDishes.get(i).getStatus()%></td> 
-                        <td><input type="number" id="quantity" value="<%=soLuong%>" name="quantity" min="0" max="500"></td> 
-                        <td><button class="btn btn-primary" style="margin-top: 10px; background-color: forestgreen" onclick="window.top.location.href = 'gdConfirm.jsp'"> Chọn </button></td> 
+                        <td><input type="number" id=<%="quantity" + listComboDishes.get(i).getIdComboDishes()%> value="<%=soLuong%>" name="quantity" min="0" max="500"></td> 
+                        <td><button class="btn btn-primary" style="margin-top: 10px; background-color: forestgreen" onclick=<%=funcThemCombo%>> Chọn </button></td> 
                     </tr> 
                     <%}%> 
                 </tbody> 

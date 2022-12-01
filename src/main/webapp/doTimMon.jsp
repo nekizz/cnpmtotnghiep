@@ -9,10 +9,16 @@
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
- DishesDAO dao = new DishesDAO();
- ArrayList<Dishes> listDishes = dao.getAllDishes();
- session.setAttribute("isCombo", String.valueOf(false));
- session.setAttribute("listDishes", listDishes);
- response.sendRedirect("gdChonMon.jsp");
+    String maBan = (String) session.getAttribute("idTable");
+    if (maBan == null) {
+        response.sendRedirect("gdChonBan.jsp");
+        return;
+    }
+    String url = "gdChonMon.jsp?idTable=" + maBan;
+    DishesDAO dao = new DishesDAO();
+    ArrayList<Dishes> listDishes = dao.getAllDishes();
+    session.setAttribute("isCombo", String.valueOf(false));
+    session.setAttribute("listDishes", listDishes);
+    response.sendRedirect(url);
 %>
 

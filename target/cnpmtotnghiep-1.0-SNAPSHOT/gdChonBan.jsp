@@ -67,7 +67,7 @@
                         <td><%=listTable.get(i).getType()%></td> 
                         <td><%=listTable.get(i).getStatus()%></td> 
                         <td><a class="btn btn-success btn-sm" 
-                               href="gdChonMon.jsp?idkh=<%=listTable.get(i).getIdTable()%>">Chọn</a></td> 
+                               href="gdChonMon.jsp?idTable=<%=listTable.get(i).getIdTable()%>">Chọn</a></td> 
                     </tr> 
                     <%}%> 
                 </tbody> 

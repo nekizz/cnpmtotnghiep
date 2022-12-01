@@ -10,8 +10,7 @@ public class DishesOrdered {
     private String description;
     private Dishes dishes;
 
-    public DishesOrdered(int id, int quantity, float price, float totalAmount, float discount, String description, Dishes dishes) {
-        this.id = id;
+    public DishesOrdered(int quantity, float price, float totalAmount, float discount, String description, Dishes dishes) {
         this.quantity = quantity;
         this.price = price;
         this.totalAmount = totalAmount;
