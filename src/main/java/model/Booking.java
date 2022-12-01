@@ -15,8 +15,7 @@ public class Booking {
     private User user;
     ArrayList<BookedTable> bookedTable;
 
-    public Booking(int id, Date bookDay, String note, Client client, User user, ArrayList<BookedTable> bookedTable) {
-        this.id = id;
+    public Booking(Date bookDay, String note, Client client, User user, ArrayList<BookedTable> bookedTable) {
         this.bookDay = bookDay;
         this.note = note;
         this.client = client;

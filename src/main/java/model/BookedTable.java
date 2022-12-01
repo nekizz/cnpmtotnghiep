@@ -14,7 +14,7 @@ public class BookedTable {
     private ArrayList<ComboOrdered> comboOrdered;
     private ArrayList<DishesOrdered> dishesOrdered;
 
-    public BookedTable(int id, String note, Table table, ArrayList<ComboOrdered> comboOrdered, ArrayList<DishesOrdered> dishesOrdered, boolean isCheckIn) {
+    public BookedTable(String note, Table table, ArrayList<ComboOrdered> comboOrdered, ArrayList<DishesOrdered> dishesOrdered, boolean isCheckIn) {
         this.id = id;
         this.note = note;
         this.table = table;

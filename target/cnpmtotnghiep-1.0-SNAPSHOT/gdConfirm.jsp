@@ -4,6 +4,8 @@
     Author     : ADMIN
 --%>
 
+<%@page import="model.DishesOrdered"%>
+<%@page import="model.ComboOrdered"%>
 <%@page import="dao.DishesDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.Dishes"%>
@@ -16,8 +18,19 @@
     </head>
 
     <%
-        DishesDAO dao = new DishesDAO();
-        ArrayList<Dishes> listDishes = dao.getAllDishes();
+        String maBan = request.getParameter("idTable");
+        if (maBan == "") {
+            response.sendRedirect("gdChinhNV.jsp");
+            return;
+        }
+        String url = "gdChonMon.jsp?idTable=" + maBan;
+        ArrayList<ComboOrdered> listComboOrdered = (ArrayList<ComboOrdered>) session.getAttribute("listComboOrdered");
+        ArrayList<DishesOrdered> listDishesOrdered = (ArrayList<DishesOrdered>) session.getAttribute("listDishesOrdered");
+        if (listComboOrdered == null && listDishesOrdered == null) {
+            response.sendRedirect(url);
+            return;
+        }
+
     %> 
 
     <body> 
@@ -25,29 +38,35 @@
             <h2 class="text-primary text-primary" style="text-align: left; margin-top: 20px " > Xác nhận </h2>            
             <div style="margin-top: 50px">
                 <table class="table" > 
-                <thead> 
-                    <tr> 
-                        <th scope="col">STT</th> 
-                        <th scope="col">Tên món</th>
-                        <th scope="col">Giá</th>
-                        <th scope="col">Số lượng</th>
-                    </tr> 
-                </thead> 
-                <tbody>                     
-                    <%
-                    if (listDishes != null)
-                        for (int i = 0; i < listDishes.size(); i++) {
-                    %> 
-                    <tr> 
-                        <th scope="row"><%=(i + 1)%></th> 
-                        <td><%=listDishes.get(i).getName()%></td> 
-                        <td><%=listDishes.get(i).getPrice()%></td> 
-                        <td><%=listDishes.get(i).getStatus()%></td> 
-                    </tr> 
-                    <%}%> 
-                </tbody> 
-            </table>
-            <button class="btn btn-primary" style="margin-top: 10px;margin-left: 60%" onclick="window.top.location.href = 'error.jsp'"> Tiếp tục </button> 
+                    <thead> 
+                        <tr> 
+                            <th scope="col">STT</th> 
+                            <th scope="col">Tên món</th>
+                            <th scope="col">Giá</th>
+                            <th scope="col">Số lượng</th>
+                            <th scope="col">Tổng tiền</th>
+                        </tr> 
+                    </thead> 
+                    <tbody>                     
+                        <%                        if (listComboOrdered != null)
+                                for (int i = 0; i < listComboOrdered.size(); i++) {
+                        %> 
+                        <tr> 
+                            <th scope="row"><%=(i + 1)%></th> 
+                            <td><%=listComboOrdered.get(i).getComboDishes().getName()%></td> 
+                            <td><%=listComboOrdered.get(i).getPrice()%></td> 
+                            <td><%=listComboOrdered.get(i).getQuantity()%></td> 
+                            <td><%=listComboOrdered.get(i).getTotalAmount()%></td>
+                        </tr> 
+                        <%}%> 
+                    </tbody> 
+                </table>
+
+                <div class="text-center" style="margin-top: 10px;margin-left: 60%"> 
+                    <button class="btn btn-primary"  onclick="window.top.location.href = 'gdChonBan.jsp'"> Đặt tiếp </button> 
+                    <button class="btn btn-primary" onclick="window.top.location.href = 'doThemBooking.jsp'"> Thanh toán </button>
+                </div> 
+
             </div>
         </div> 
     </body> 
