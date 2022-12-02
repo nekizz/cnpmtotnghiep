@@ -17,7 +17,7 @@
         <title>Giao diện xác nhận</title> 
     </head>
 
-    <%
+    <%  int count =0 ;
         String maBan = request.getParameter("idTable");
         if (maBan == "") {
             response.sendRedirect("gdChinhNV.jsp");
@@ -47,18 +47,35 @@
                             <th scope="col">Tổng tiền</th>
                         </tr> 
                     </thead> 
-                    <tbody>                     
-                        <%                        if (listComboOrdered != null)
+                    <tbody>          
+                        <%  if (listDishesOrdered != null)
+                                for (int i = 0; i < listDishesOrdered.size(); i++) {
+                        %> 
+                        <tr> 
+                            <th scope="row"><%=(count + 1)%></th> 
+                            <td><%=listDishesOrdered.get(i).getDishes().getName()%></td> 
+                            <td><%=listDishesOrdered.get(i).getPrice()%></td> 
+                            <td><%=listDishesOrdered.get(i).getQuantity()%></td> 
+                            <td><%=listDishesOrdered.get(i).getTotalAmount()%></td>
+                        </tr> 
+                        <%
+                            count++;
+                        }%>
+                        
+                        <%  if (listComboOrdered != null)
                                 for (int i = 0; i < listComboOrdered.size(); i++) {
                         %> 
                         <tr> 
-                            <th scope="row"><%=(i + 1)%></th> 
+                            <th scope="row"><%=(count + 1)%></th> 
                             <td><%=listComboOrdered.get(i).getComboDishes().getName()%></td> 
                             <td><%=listComboOrdered.get(i).getPrice()%></td> 
                             <td><%=listComboOrdered.get(i).getQuantity()%></td> 
                             <td><%=listComboOrdered.get(i).getTotalAmount()%></td>
                         </tr> 
-                        <%}%> 
+                        <%
+                            count++;
+                        }%>
+                        
                     </tbody> 
                 </table>
 

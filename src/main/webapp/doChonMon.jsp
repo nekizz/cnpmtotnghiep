@@ -38,8 +38,6 @@
             response.sendRedirect("gdChonBan.jsp");
             return;
         }
-        Map<Object, Long> mapping = new HashMap<>();
-        long unixTime = Instant.now().getEpochSecond();
         for (Dishes co : listDishes) {
             if (co.getIdDishes().contains(idFood)) {
                 ArrayList<DishesOrdered> listDishesOrdered = null;

@@ -32,7 +32,7 @@
         <title>Giao diện chọn món</title>
     </head>
 
-    <%
+    <%  int count =0;
         String maBan = request.getParameter("idTable");
         if (maBan == "") {
             response.sendRedirect("gdChinhNV.jsp");
@@ -118,7 +118,7 @@
                         if (listDishes != null)
                             for (int i = 0; i < listDishes.size(); i++) {
                                 String funcThem = "\"themDV('" + listDishes.get(i).getIdDishes().toString() + "')\"";
-
+                             
                     %> 
 
                     <tr> 
@@ -166,19 +166,36 @@
                         </tr> 
                     </thead> 
                     <tbody>                     
-                        <%
+                        <%  
                             if (listDishesOrdered != null)
                                 for (int i = 0; i < listDishesOrdered.size(); i++) {
-
-                        %> 
+                        %>      
                         <tr> 
-                            <th scope="row"><%=(i + 1)%></th> 
+                            <th scope="row"><%=(count + 1)%></th> 
                             <td><%=listDishesOrdered.get(i).getDishes().getName()%></td> 
                             <td><%=listDishesOrdered.get(i).getTotalAmount()%></td> 
                             <td><%=listDishesOrdered.get(i).getQuantity()%></td> 
                             <td><a class="btn btn-success btn-sm" href="error.jsp">Hủy</a></td> 
                         </tr> 
-                        <%}%>
+                        <%
+                            count++;
+                        }%>
+                            
+                            
+                        <%
+                            if (listComboOrdered != null)
+                                for (int i = 0; i < listComboOrdered.size(); i++) {
+                        %> 
+                        <tr> 
+                            <th scope="row"><%=(count + 1)%></th> 
+                            <td><%=listComboOrdered.get(i).getComboDishes().getName()%></td> 
+                            <td><%=listComboOrdered.get(i).getTotalAmount()%></td> 
+                            <td><%=listComboOrdered.get(i).getQuantity()%></td> 
+                            <td><a class="btn btn-success btn-sm" href="error.jsp">Hủy</a></td> 
+                        </tr> 
+                        <%
+                            count++;
+                        }%>
                     </tbody> 
                 </table>
                 <button class="btn btn-primary" style="margin-top: 10px" onclick="window.top.location.href = 'gdConfirm.jsp'"> Tiếp tục </button> 
