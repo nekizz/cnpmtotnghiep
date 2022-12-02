@@ -4,15 +4,12 @@
  */
 package model;
     
-import java.io.Serializable;
+public class Client{
+    private String idCard, name, address, phone, note;
 
-public class Client implements Serializable{
-    private String idCard, name , email, address, phone, note;
-
-    public Client(String idCard, String name, String email, String address, String phone, String note) {
+    public Client(String idCard, String name, String address, String phone, String note) {
         this.idCard = idCard;
         this.name = name;
-        this.email = email;
         this.address = address;
         this.phone = phone;
         this.note = note;
@@ -32,14 +29,6 @@ public class Client implements Serializable{
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getAddress() {

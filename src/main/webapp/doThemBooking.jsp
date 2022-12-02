@@ -17,19 +17,36 @@
 <%@page import="model.Booking"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
+    
     String maBan = (String) session.getAttribute("idTable");
     if (maBan == "") {
         response.sendRedirect("gdChonBan.jsp");
         return;
     }
-
-    String url = "gdChonMon.jsp?idTable=" + maBan;
+     String url = "gdChonMon.jsp?idTable=" + maBan;
+    Client c = (Client) session.getAttribute("client");
+    if(c == null){
+        response.sendRedirect("gdChonBan.jsp");
+        return;
+    }
+    User u = (User) session.getAttribute("user");
+    if(u == null){
+        response.sendRedirect("gdChonBan.jsp");
+        return;
+    }
+    
     ArrayList<ComboOrdered> listComboOrdered = (ArrayList<ComboOrdered>) session.getAttribute("listComboOrdered");
     ArrayList<DishesOrdered> listDishesOrdered = (ArrayList<DishesOrdered>) session.getAttribute("listDishesOrdered");
     if (listComboOrdered == null && listDishesOrdered == null) {
         response.sendRedirect(url);
         return;
     }
+    
+    ArrayList<BookedTable> listBookedTable = (ArrayList<BookedTable>) session.getAttribute("listBookedTable");
+    if(listBookedTable == null){
+        listBookedTable = new ArrayList<>();
+    }
+
     BookingDAO dao = new BookingDAO();
     Date dateBooking = new Date(System.currentTimeMillis());
     Table t = (Table) session.getAttribute("thisTable");
@@ -37,12 +54,15 @@
         response.sendRedirect("gdChonBan.jsp");
         return;
     }
-    Client c = (Client) session.getAttribute("client");
-    User u = (User) session.getAttribute("user");
-    ArrayList<BookedTable> listBookedTable = (ArrayList<BookedTable>) session.getAttribute("listBookedTable");
     listBookedTable.add(new BookedTable("", t, listComboOrdered, listDishesOrdered, true));
     Booking b = new Booking(dateBooking, "", c, u, listBookedTable);
     dao.addBooking(b);
-    response.sendRedirect("gdChinhNV.jsp");
-    return;
+    
+    session.removeAttribute("listComboOrdered");
+    session.removeAttribute("listDishesOrdered");
+    session.removeAttribute("thisTable");
+    session.removeAttribute("isCombo");
+    
+    response.sendRedirect("gdChonBan.jsp");
+    
 %>

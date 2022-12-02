@@ -154,7 +154,7 @@ public class BookingDAO extends DAO {
         ArrayList<ComboOrdered> co = new ArrayList<>();
         ArrayList<BookedTable> listbt = new ArrayList<>();
         ArrayList<Dishes> lisDishes = new ArrayList<>();
-        Dishes cd = new Dishes("KHOAILC", "Khoai lang chiên", "Còn hàng", "", 70000, 0);
+        Dishes cd = new Dishes("KHOAILC", "Khoai lang chiên", "Còn hàng", "", 70000, 0, "Ăn nhẹ");
         lisDishes.add(cd);
         ComboDishes cdes = new ComboDishes("COMBO1", "Combo tình yêu", "", 550000, 0, lisDishes, "Còn hàng");
         ComboOrdered da = new ComboOrdered(123456, 0, 123, "", cdes, 3);
@@ -163,8 +163,8 @@ public class BookingDAO extends DAO {
         Table t = new Table("BC1", "VIP", "Còn bàn", "");
         BookedTable bt = new BookedTable("", t, co, dod, true);
         listbt.add(bt);
-        Client c = new Client("BAS", "Long", "minh@gmail.com", "Hà Nội", "0123", "");
-        User u = new User(1, "Minh@123", "123456", "Minh", "Manager");
+        Client c = new Client("U123", "Minh", "Hà Nội", "01234", "");
+        User u = new User(1, "longlong", "123456", "Hoàng Long", "Waiter");
         Date date = new Date();
         Booking b = new Booking(date, "", c, u, listbt);
         BookingDAO dao = new BookingDAO();

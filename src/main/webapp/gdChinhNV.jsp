@@ -4,14 +4,23 @@
     Author     : ADMIN
 --%>
 
+<%@page import="model.User"%>
+<%@page import="model.Client"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html> 
     <head> 
-
+        
         <%@include file ="header.jsp" %> 
         <title >Giao diện nhân viên</title> 
     </head> 
+    <%
+        Client c = new Client("C123", "Minh", "minh@gmail.com", "Hà Nội", "0123", "");
+        session.setAttribute("client", c);
+        User u = new User(1, "longlong", "123456", "Hoàng Long", "Waiter");
+        session.setAttribute("user", u);
+    %>
     <body> 
         <div class="container"> 
             <h2 class="text-primary" style="text-align: left; margin-top: 20px"> Trang chủ nhân viên </h2>. 

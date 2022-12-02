@@ -65,12 +65,12 @@ public class DishesDAO extends DAO{
         }   
         return kq;
     }
-//    
-//    public static void main(String[] args) {
-//        DishesDAO dao = new DishesDAO();
-//        ArrayList<Dishes> l = new ArrayList<>();
-//        l = dao.getAllDishes();
-//        System.out.println(l.size());
-//    }
+    
+    public static void main(String[] args) {
+        DishesDAO dao = new DishesDAO();
+        ArrayList<Dishes> l = new ArrayList<>();
+        l = dao.getAllDishes();
+        System.out.println(l.size());
+    }
     
 }

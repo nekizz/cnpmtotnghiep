@@ -5,20 +5,21 @@
 package model;
 
 public class Dishes {
-    private String idDishes, name, status, description;
+    private String idDishes, name, status, description, type;
     private float price, discount;
 
     public Dishes() {
     }
     
 
-    public Dishes(String idDishes, String name, String status, String description, float price, float discount) {
+    public Dishes(String idDishes, String name, String status, String description, float price, float discount, String type) {
         this.idDishes = idDishes;
         this.name = name;
         this.status = status;
         this.description = description;
         this.price = price;
         this.discount = discount;
+        this.type = type;
     }
 
     public String getIdDishes() {
@@ -67,6 +68,14 @@ public class Dishes {
 
     public void setDiscount(float discount) {
         this.discount = discount;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
     
 }

@@ -80,7 +80,6 @@
                 </table>
 
                 <div class="text-center" style="margin-top: 10px;margin-left: 60%"> 
-                    <button class="btn btn-primary"  onclick="window.top.location.href = 'gdChonBan.jsp'"> Đặt tiếp </button> 
                     <button class="btn btn-primary" onclick="window.top.location.href = 'doThemBooking.jsp'"> Thanh toán </button>
                 </div> 
 
