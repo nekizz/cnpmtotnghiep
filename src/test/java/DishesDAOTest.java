@@ -48,10 +48,16 @@ public class DishesDAOTest {
         DishesDAO instance = new DishesDAO();
         ArrayList<Dishes> expResult = new ArrayList<>();
         Dishes d = new Dishes("KHOAILC", "Khoai lang chiên", "Còn hàng", null, 70000, 0, "Ăn nhẹ");
+        d.setIdDishes("KHOAILC");
+        d.setName("Khoai lang chiên");
+        d.setStatus("Còn hàng");
+        d.setDescription("");
+        d.setPrice((float) 70000.0);
+        d.setDiscount((float)0.0);
+        d.setType("Ăn nhẹ");
         expResult.add(d);
         ArrayList<Dishes> result = instance.searchDishes(ten);
-        double a = 3.0;
-        double b = 3.0;
-        assertEquals(a, b, 0);
+
+        assertEquals(expResult, result);
     }
 }

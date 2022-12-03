@@ -20,11 +20,13 @@
         session.setAttribute("client", c);
         User u = new User(1, "longlong", "123456", "Hoàng Long", "Waiter");
         session.setAttribute("user", u);
+        response.sendRedirect("gdChinhNV.jsp");
     %>
     <body> 
         <div class="container"> 
             <h2 class="text-primary" style="text-align: left; margin-top: 20px"> Trang chủ nhân viên </h2>. 
             <div class="text-center" style="margin-top: 50px"> 
+                <h1><%=u.getName()%></h1>
                 <button class="btn btn-primary" onclick="window.top.location.href = 'gdChonBan.jsp'"> Đặt món </button>
                 <button class="btn btn-primary" onclick="window.top.location.href = 'error.jsp'"> Thông tin cá nhân </button> 
                 <button class="btn btn-primary" onclick="window.top.location.href = 'error.jsp'"> Thống kê </button> 

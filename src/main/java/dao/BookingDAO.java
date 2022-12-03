@@ -31,66 +31,63 @@ public class BookingDAO extends DAO {
     }
 
     public boolean addBooking(Booking b) {
-        String sqlAddBooking = "INSERT INTO tblbooking(ID, BookDay, Note, ClientIDCard, UserID) VALUES(?,?,?,?,?)";
-        String sqlAddBookedTable = "INSERT INTO tblbookedtable(ID, IsCheckin, Note, TableIDTable, BookingID)  VALUES(?,?,?,?,?)";
-        String sqlAddComboOrdered = "INSERT INTO tblcomboordered(ID, Price, Discount, Quantity, TotalAmount, Description, BookedTableID, ComboDishesID)  VALUES(?,?,?,?,?,?,?,?)";
-        String sqlAddDishesOrdered = "INSERT INTO tbldishesordered(ID, Price, Discount, Quantity, TotalAmount, Description, BookedTableID, DishesID)  VALUES(?,?,?,?,?,?,?,?)";
+        String sqlAddBooking = "INSERT INTO tblbooking(BookDay, Note, ClientIDCard, UserID) VALUES(?,?,?,?)";
+        String sqlAddBookedTable = "INSERT INTO tblbookedtable(IsCheckin, Note, TableIDTable, BookingID)  VALUES(?,?,?,?)";
+        String sqlAddComboOrdered = "INSERT INTO tblcomboordered(Price, Discount, Quantity, TotalAmount, Description, BookedTableID, ComboDishesID)  VALUES(?,?,?,?,?,?,?)";
+        String sqlAddDishesOrdered = "INSERT INTO tbldishesordered(Price, Discount, Quantity, TotalAmount, Description, BookedTableID, DishesID)  VALUES(?,?,?,?,?,?,?)";
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
+        System.out.println(1);
         boolean result = true;
         try {
             con.setAutoCommit(false);
             PreparedStatement ps = con.prepareStatement(sqlAddBooking, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, b.getId());
-            ps.setString(2, sdf.format(b.getBookDay()));
-            ps.setString(3, b.getNote());
-            ps.setString(4, b.getClient().getIdCard());
-            ps.setInt(5, b.getUser().getId());
-
+            ps.setString(1, sdf.format(b.getBookDay()));
+            ps.setString(2, b.getNote());
+            ps.setString(3, b.getClient().getIdCard());
+            ps.setInt(4, b.getUser().getId());
             ps.executeUpdate();
             ResultSet generatedKeys = ps.getGeneratedKeys();
             if (generatedKeys.next()) {
                 b.setId(generatedKeys.getInt(1));
             }
+            System.out.println(2);
+            
             for (BookedTable bt : b.getBookedTable()) {
                 ps = con.prepareStatement(sqlAddBookedTable, Statement.RETURN_GENERATED_KEYS);
-                ps.setInt(1, bt.getId());
-                ps.setBoolean(2, bt.getIsCheckIn());
-                ps.setString(3, bt.getNote());
-                ps.setString(4, bt.getTable().getIdTable());
-                ps.setInt(5, b.getId());
-
+                ps.setBoolean(1, bt.getIsCheckIn());
+                ps.setString(2, bt.getNote());
+                ps.setString(3, bt.getTable().getIdTable());
+                ps.setInt(4, b.getId());
                 ps.executeUpdate();
-                //get id of the new inserted booking
                 generatedKeys = ps.getGeneratedKeys();
                 if (generatedKeys.next()) {
                     bt.setId(generatedKeys.getInt(1));
                 }
-
+                System.out.println(3);
                 ArrayList<DishesOrdered> listDishesOrdered = new ArrayList<>();
                 listDishesOrdered = bt.getDishesOrdered();
                 ArrayList<ComboOrdered> listComboOrdered = new ArrayList<>();
                 listComboOrdered = bt.getComboOrdered();
+                
                 if (listComboOrdered != null && listDishesOrdered != null) {
                     //insert ComboOrdered
                     if (listComboOrdered.size() > 0) {
                         for (ComboOrdered co : listComboOrdered) {
                             ps = con.prepareStatement(sqlAddComboOrdered, Statement.RETURN_GENERATED_KEYS);
-                            ps.setInt(1, co.getId());
-                            ps.setFloat(2, co.getPrice());
-                            ps.setFloat(3, co.getDiscount());
-                            ps.setInt(4, co.getQuantity());
-                            ps.setFloat(5, co.getTotalAmount());
-                            ps.setString(6, co.getDescription());
-                            ps.setInt(7, bt.getId());
-                            ps.setString(8, co.getComboDishes().getIdComboDishes());
+                            ps.setFloat(1, co.getPrice());
+                            ps.setFloat(2, co.getDiscount());
+                            ps.setInt(3, co.getQuantity());
+                            ps.setFloat(4, co.getTotalAmount());
+                            ps.setString(5, co.getDescription());
+                            ps.setInt(6, bt.getId());
+                            ps.setString(7, co.getComboDishes().getIdComboDishes());
 
                             ps.executeUpdate();
-                            //get id of the new inserted booking
                             generatedKeys = ps.getGeneratedKeys();
                             if (generatedKeys.next()) {
                                 co.setId(generatedKeys.getInt(1));
                             }
+                            System.out.println(4);
                         }
                     }
 
@@ -98,14 +95,13 @@ public class BookingDAO extends DAO {
                     if (listDishesOrdered.size() > 0) {
                         for (DishesOrdered dod : listDishesOrdered) {
                             ps = con.prepareStatement(sqlAddDishesOrdered, Statement.RETURN_GENERATED_KEYS);
-                            ps.setInt(1, dod.getId());
-                            ps.setFloat(2, dod.getPrice());
-                            ps.setFloat(3, dod.getDiscount());
-                            ps.setInt(4, dod.getQuantity());
-                            ps.setFloat(5, dod.getTotalAmount());
-                            ps.setString(6, dod.getDescription());
-                            ps.setInt(7, dod.getId());
-                            ps.setString(8, dod.getDishes().getIdDishes());
+                            ps.setFloat(1, dod.getPrice());
+                            ps.setFloat(2, dod.getDiscount());
+                            ps.setInt(3, dod.getQuantity());
+                            ps.setFloat(4, dod.getTotalAmount());
+                            ps.setString(5, dod.getDescription());
+                            ps.setInt(6, bt.getId());
+                            ps.setString(7, dod.getDishes().getIdDishes());
 
                             ps.executeUpdate();
                             //get id of the new inserted booking
@@ -113,10 +109,11 @@ public class BookingDAO extends DAO {
                             if (generatedKeys.next()) {
                                 dod.setId(generatedKeys.getInt(1));
                             }
+                            System.out.println(5);
                         }
                     }
-
-                    return true;
+                        
+                    con.commit();
                 } else {
                     result = false;
                     try {
@@ -141,6 +138,7 @@ public class BookingDAO extends DAO {
             e.printStackTrace();
         } finally {
             try {
+                con.setAutoCommit(true);
             } catch (Exception ex) {
                 result = false;
                 ex.printStackTrace();
@@ -154,16 +152,16 @@ public class BookingDAO extends DAO {
         ArrayList<ComboOrdered> co = new ArrayList<>();
         ArrayList<BookedTable> listbt = new ArrayList<>();
         ArrayList<Dishes> lisDishes = new ArrayList<>();
-        Dishes cd = new Dishes("KHOAILC", "Khoai lang chiên", "Còn hàng", "", 70000, 0, "Ăn nhẹ");
+        Dishes cd = new Dishes("KHOAILC", "Khoai lang chiên", "Còn hàng", "rrr", 70000, 0, "Ăn nhẹ");
         lisDishes.add(cd);
-        ComboDishes cdes = new ComboDishes("COMBO1", "Combo tình yêu", "", 550000, 0, lisDishes, "Còn hàng");
-        ComboOrdered da = new ComboOrdered(123456, 0, 123, "", cdes, 3);
+        ComboDishes cdes = new ComboDishes("COMBO1", "Combo tình yêu", "rr", 550000, 0, lisDishes, "Còn hàng");
+        ComboOrdered da = new ComboOrdered(123456, 0, 123, "rr", cdes, 3);
         co.add(da);
-        dod.add(new DishesOrdered(3, 70000, 210000, 0, "", cd));
-        Table t = new Table("BC1", "VIP", "Còn bàn", "");
+        dod.add(new DishesOrdered(3, 70000, 210000, 0, "ád", cd));
+        Table t = new Table("BC1", "VIP", "Còn bàn", "fff");
         BookedTable bt = new BookedTable("", t, co, dod, true);
         listbt.add(bt);
-        Client c = new Client("U123", "Minh", "Hà Nội", "01234", "");
+        Client c = new Client("U123", "Minh", "Hà Nội", "01234", "hj", "long@gmail.com");
         User u = new User(1, "longlong", "123456", "Hoàng Long", "Waiter");
         Date date = new Date();
         Booking b = new Booking(date, "", c, u, listbt);

@@ -5,13 +5,11 @@ dao\DAO.class
 model\ComboOrdered.class
 dao\TableDAO.class
 model\Booking.class
-dao\ComboOrderedDAO.class
 dao\ComboDishesDAO.class
 dao\BookingDAO.class
 model\DishesOrdered.class
 model\Table.class
 dao\DishesDAO.class
-dao\DishesOrderedDAO.class
 model\User.class
 model\BookedTable.class
 model\Restaurant.class

@@ -5,14 +5,26 @@
 package model;
     
 public class Client{
-    private String idCard, name, address, phone, note;
+    private String idCard, name, address, phone, note, email;
 
-    public Client(String idCard, String name, String address, String phone, String note) {
+    public Client(String idCard, String name, String address, String phone, String note, String email) {
         this.idCard = idCard;
         this.name = name;
         this.address = address;
         this.phone = phone;
         this.note = note;
+        this.email = email;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Client() {
     }
 
     public String getIdCard() {
