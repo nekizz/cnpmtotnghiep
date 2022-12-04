@@ -69,9 +69,9 @@ public class BookingDAO extends DAO {
                 ArrayList<ComboOrdered> listComboOrdered = new ArrayList<>();
                 listComboOrdered = bt.getComboOrdered();
                 
-                if (listComboOrdered != null && listDishesOrdered != null) {
+                if (listComboOrdered != null || listDishesOrdered != null) {
                     //insert ComboOrdered
-                    if (listComboOrdered.size() > 0) {
+                    if (listComboOrdered != null) {
                         for (ComboOrdered co : listComboOrdered) {
                             ps = con.prepareStatement(sqlAddComboOrdered, Statement.RETURN_GENERATED_KEYS);
                             ps.setFloat(1, co.getPrice());
@@ -92,7 +92,7 @@ public class BookingDAO extends DAO {
                     }
 
                     //insert DishesOrdered
-                    if (listDishesOrdered.size() > 0) {
+                    if (listDishesOrdered!= null) {
                         for (DishesOrdered dod : listDishesOrdered) {
                             ps = con.prepareStatement(sqlAddDishesOrdered, Statement.RETURN_GENERATED_KEYS);
                             ps.setFloat(1, dod.getPrice());

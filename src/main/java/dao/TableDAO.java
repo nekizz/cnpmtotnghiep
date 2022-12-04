@@ -68,6 +68,7 @@ public class TableDAO extends DAO{
         TableDAO dao = new TableDAO();
         ArrayList<Table> l = new ArrayList<>();
         l = dao.getAllTable();
+        l.removeIf(s -> s.getIdTable().equals("BC1"));
         System.out.println(l.size());
     }
 }
