@@ -21,12 +21,13 @@ public class TableDAO extends DAO{
     }
 
     public ArrayList<Table> getAllTable() {
-        ArrayList<Table> kq = new ArrayList<>();
+        ArrayList<Table> kq = null;
         String sql = "select * from tbltable"; //su dung stored procedure
         try{
             CallableStatement cs = con.prepareCall(sql);
             ResultSet rs = cs.executeQuery();
             while(rs.next()){
+                if(kq == null) kq = new ArrayList<>();
                 Table tb = new Table();
                 tb.setIdTable(rs.getString("IDTable"));
                 tb.setType(rs.getString("Type"));
@@ -42,14 +43,15 @@ public class TableDAO extends DAO{
     }
 
     public ArrayList<Table> searchTable(String idTable) {
-        ArrayList<Table> kq = new ArrayList<>();
+        ArrayList<Table> kq = null;
         String sql = "select * from tbltable where IDTable like ?"; //su dung stored procedure
         try{
+
             CallableStatement cs = con.prepareCall(sql);
             cs.setString(1, "%"+idTable+"%");
             ResultSet rs = cs.executeQuery();
-             
             while(rs.next()){
+                if(kq == null) kq = new ArrayList<>();
                 Table tb = new Table();
                 tb.setIdTable(rs.getString("IDTable"));
                 tb.setType(rs.getString("Type"));
@@ -68,7 +70,6 @@ public class TableDAO extends DAO{
         TableDAO dao = new TableDAO();
         ArrayList<Table> l = new ArrayList<>();
         l = dao.getAllTable();
-        l.removeIf(s -> s.getIdTable().equals("BC1"));
         System.out.println(l.size());
     }
 }

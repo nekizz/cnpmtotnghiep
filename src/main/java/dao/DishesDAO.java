@@ -17,13 +17,14 @@ public class DishesDAO extends DAO{
     }
     
     public ArrayList<Dishes> getAllDishes(){
-        ArrayList<Dishes> kq = new ArrayList<>();
+        ArrayList<Dishes> kq = null;
         String sql = "select * from tbldishes"; 
         try{
             CallableStatement cs = con.prepareCall(sql);
             ResultSet rs = cs.executeQuery();
              
             while(rs.next()){
+                if(kq==null) kq = new ArrayList<>();
                 Dishes ds = new Dishes();
                 ds.setIdDishes(rs.getString("IdDishes"));
                 ds.setName(rs.getString("Name"));
@@ -41,7 +42,7 @@ public class DishesDAO extends DAO{
     }
     
     public ArrayList<Dishes> searchDishes(String tenMon){
-        ArrayList<Dishes> kq = new ArrayList<>();
+        ArrayList<Dishes> kq = null;
         String sql = "select * from tbldishes where IdDishes like ?"; 
         try{
             CallableStatement cs = con.prepareCall(sql);
@@ -49,6 +50,7 @@ public class DishesDAO extends DAO{
             ResultSet rs = cs.executeQuery();
              
             while(rs.next()){
+                if(kq==null) kq = new ArrayList<>();
                 Dishes ds = new Dishes();
                 ds.setIdDishes(rs.getString("IdDishes"));
                 ds.setName(rs.getString("Name"));
