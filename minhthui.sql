@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.29, for Win64 (x86_64)
 --
--- Host: localhost    Database: cnpm
+-- Host: 127.0.0.1    Database: cnpm
 -- ------------------------------------------------------
 -- Server version	8.0.29
 
@@ -24,15 +24,15 @@ DROP TABLE IF EXISTS `tblbookedtable`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tblbookedtable` (
   `ID` int NOT NULL AUTO_INCREMENT,
-  `IsCheckin` tinyint NOT NULL,
+  `IsCheckin` varchar(255) NOT NULL,
   `Note` varchar(255) DEFAULT NULL,
   `TableIDTable` varchar(255) NOT NULL,
   `BookingID` int NOT NULL,
   PRIMARY KEY (`ID`),
-  KEY `FKBookedTabl264506` (`TableIDTable`),
-  KEY `FKBookedTabl425481` (`BookingID`),
-  CONSTRAINT `FKBookedTabl264506` FOREIGN KEY (`TableIDTable`) REFERENCES `tbltable` (`IDTable`),
-  CONSTRAINT `FKBookedTabl425481` FOREIGN KEY (`BookingID`) REFERENCES `tblbooking` (`ID`)
+  KEY `FKtblBookedT650497` (`TableIDTable`),
+  KEY `FKtblBookedT971869` (`BookingID`),
+  CONSTRAINT `FKtblBookedT650497` FOREIGN KEY (`TableIDTable`) REFERENCES `tbltable` (`IDTable`),
+  CONSTRAINT `FKtblBookedT971869` FOREIGN KEY (`BookingID`) REFERENCES `tblbooking` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -59,10 +59,10 @@ CREATE TABLE `tblbooking` (
   `ClientIDCard` varchar(255) NOT NULL,
   `UserID` int NOT NULL,
   PRIMARY KEY (`ID`),
-  KEY `FKBooking988462` (`ClientIDCard`),
-  KEY `FKBooking176015` (`UserID`),
-  CONSTRAINT `FKBooking176015` FOREIGN KEY (`UserID`) REFERENCES `tbluser` (`ID`),
-  CONSTRAINT `FKBooking988462` FOREIGN KEY (`ClientIDCard`) REFERENCES `tblclient` (`IDCard`)
+  KEY `FKtblBooking148863` (`ClientIDCard`),
+  KEY `FKtblBooking220575` (`UserID`),
+  CONSTRAINT `FKtblBooking148863` FOREIGN KEY (`ClientIDCard`) REFERENCES `tblclient` (`IDCard`),
+  CONSTRAINT `FKtblBooking220575` FOREIGN KEY (`UserID`) REFERENCES `tbluser` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -114,7 +114,7 @@ CREATE TABLE `tblcombodishes` (
   `Name` varchar(255) NOT NULL,
   `Price` float NOT NULL,
   `Discount` float NOT NULL,
-  `Status` varchar(45) NOT NULL,
+  `Status` varchar(255) DEFAULT NULL,
   `Note` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`IDComboDishes`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
@@ -126,7 +126,7 @@ CREATE TABLE `tblcombodishes` (
 
 LOCK TABLES `tblcombodishes` WRITE;
 /*!40000 ALTER TABLE `tblcombodishes` DISABLE KEYS */;
-INSERT INTO `tblcombodishes` VALUES ('COMBO1','Combo tình yêu',550000,0,'Còn hàng',NULL),('COMBO2','Combo mê quá',400000,0,'Còn hàng',NULL);
+INSERT INTO `tblcombodishes` VALUES ('COMBO1','Combo tình yêu',100000,0,'Còn hàng',NULL),('COMBO2','Combo thất tình',20000,0,'Còn hàng',NULL);
 /*!40000 ALTER TABLE `tblcombodishes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -147,10 +147,10 @@ CREATE TABLE `tblcomboordered` (
   `BookedTableID` int NOT NULL,
   `ComboDishesID` varchar(255) NOT NULL,
   PRIMARY KEY (`ID`),
-  KEY `FKComboOrder65265` (`BookedTableID`),
-  KEY `FKComboOrder183102` (`ComboDishesID`),
-  CONSTRAINT `FKComboOrder183102` FOREIGN KEY (`ComboDishesID`) REFERENCES `tblcombodishes` (`IDComboDishes`),
-  CONSTRAINT `FKComboOrder65265` FOREIGN KEY (`BookedTableID`) REFERENCES `tblbookedtable` (`ID`)
+  KEY `FKtblComboOr446861` (`BookedTableID`),
+  KEY `FKtblComboOr642566` (`ComboDishesID`),
+  CONSTRAINT `FKtblComboOr446861` FOREIGN KEY (`BookedTableID`) REFERENCES `tblbookedtable` (`ID`),
+  CONSTRAINT `FKtblComboOr642566` FOREIGN KEY (`ComboDishesID`) REFERENCES `tblcombodishes` (`IDComboDishes`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -178,10 +178,7 @@ CREATE TABLE `tbldishes` (
   `Price` float NOT NULL,
   `Discount` float NOT NULL,
   `Description` varchar(255) DEFAULT NULL,
-  `ComboDishesID` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`IDDishes`),
-  KEY `FKDishes320504` (`ComboDishesID`),
-  CONSTRAINT `FKDishes320504` FOREIGN KEY (`ComboDishesID`) REFERENCES `tblcombodishes` (`IDComboDishes`)
+  PRIMARY KEY (`IDDishes`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -191,8 +188,36 @@ CREATE TABLE `tbldishes` (
 
 LOCK TABLES `tbldishes` WRITE;
 /*!40000 ALTER TABLE `tbldishes` DISABLE KEYS */;
-INSERT INTO `tbldishes` VALUES ('KHOAILC','Khoai lang chiên','Ăn nhẹ','Còn hàng',70000,0,NULL,'COMBO1'),('KHOAITC','Khoai tây chiên','Ăn nhẹ','Còn hàng',70000,0,NULL,NULL),('LAU1','Lẩu thái','Ăn chính','Còn hàng',250000,0,NULL,'COMBO1'),('LAU2','Lẩu chua cay','Ăn chính','Còn hàng',300000,0,NULL,NULL),('MYGATAN1','Mỳ gà tần','Ăn nhẹ','Còn hàng',85000,0,NULL,NULL),('MYTOM1','Mỳ tim cật','Ăn nhẹ','Còn hàng',50000,0,NULL,NULL),('NUOC1','Coca','Đồ uống','Còn hàng',10000,0,NULL,'COMBO1');
+INSERT INTO `tbldishes` VALUES ('COCA1','Nước uống coca','Đồ uống','Còn hàng',10000,0,NULL),('KHOAILC','Khoai lang chiên','Ăn nhẹ','Còn hàng',80000,0,NULL),('KHOAITC','Khoai tây chiên','Ăn nhẹ','Còn hàng',70000,0,NULL),('LAUTHAI','Lẩu thái','Ăn chính','Còn hàng',300000,0,NULL);
 /*!40000 ALTER TABLE `tbldishes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tbldishescombo`
+--
+
+DROP TABLE IF EXISTS `tbldishescombo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `tbldishescombo` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `IDComboDishes` varchar(255) NOT NULL,
+  `IDDishes` varchar(255) NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `FKtblDishesC853651` (`IDComboDishes`),
+  KEY `FKtblDishesC491741` (`IDDishes`),
+  CONSTRAINT `FKtblDishesC491741` FOREIGN KEY (`IDDishes`) REFERENCES `tbldishes` (`IDDishes`),
+  CONSTRAINT `FKtblDishesC853651` FOREIGN KEY (`IDComboDishes`) REFERENCES `tblcombodishes` (`IDComboDishes`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbldishescombo`
+--
+
+LOCK TABLES `tbldishescombo` WRITE;
+/*!40000 ALTER TABLE `tbldishescombo` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tbldishescombo` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -212,10 +237,10 @@ CREATE TABLE `tbldishesordered` (
   `BookedTableID` int NOT NULL,
   `DishesID` varchar(255) NOT NULL,
   PRIMARY KEY (`ID`),
-  KEY `FKDishesOrde151873` (`BookedTableID`),
-  KEY `FKDishesOrde751666` (`DishesID`),
-  CONSTRAINT `FKDishesOrde151873` FOREIGN KEY (`BookedTableID`) REFERENCES `tblbookedtable` (`ID`),
-  CONSTRAINT `FKDishesOrde751666` FOREIGN KEY (`DishesID`) REFERENCES `tbldishes` (`IDDishes`)
+  KEY `FKtblDishesO723631` (`BookedTableID`),
+  KEY `FKtblDishesO190258` (`DishesID`),
+  CONSTRAINT `FKtblDishesO190258` FOREIGN KEY (`DishesID`) REFERENCES `tbldishes` (`IDDishes`),
+  CONSTRAINT `FKtblDishesO723631` FOREIGN KEY (`BookedTableID`) REFERENCES `tblbookedtable` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -242,7 +267,7 @@ CREATE TABLE `tblrestaurant` (
   `Address` varchar(255) NOT NULL,
   `Description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -251,7 +276,7 @@ CREATE TABLE `tblrestaurant` (
 
 LOCK TABLES `tblrestaurant` WRITE;
 /*!40000 ALTER TABLE `tblrestaurant` DISABLE KEYS */;
-INSERT INTO `tblrestaurant` VALUES (1,'Mai An',3,'Hà Nội',NULL),(2,'Hòa Lạc',4,'Hồ Chí Minh',NULL);
+INSERT INTO `tblrestaurant` VALUES (1,'Malina',3,'Hà Nội',NULL);
 /*!40000 ALTER TABLE `tblrestaurant` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -269,8 +294,8 @@ CREATE TABLE `tbltable` (
   `Description` varchar(255) DEFAULT NULL,
   `RestaurantID` int NOT NULL,
   PRIMARY KEY (`IDTable`),
-  KEY `FKTable233910` (`RestaurantID`),
-  CONSTRAINT `FKTable233910` FOREIGN KEY (`RestaurantID`) REFERENCES `tblrestaurant` (`ID`)
+  KEY `FKtblTable244605` (`RestaurantID`),
+  CONSTRAINT `FKtblTable244605` FOREIGN KEY (`RestaurantID`) REFERENCES `tblrestaurant` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -280,7 +305,7 @@ CREATE TABLE `tbltable` (
 
 LOCK TABLES `tbltable` WRITE;
 /*!40000 ALTER TABLE `tbltable` DISABLE KEYS */;
-INSERT INTO `tbltable` VALUES ('BC1','VIP','Còn bàn',NULL,1),('TN1','Thường','Còn bàn',NULL,1),('TN2','VIP','Hết bàn',NULL,1),('TN3','VIP','Còn bàn',NULL,1),('TN4','Thường','Hết bàn',NULL,1),('TN5','VIP','Còn bàn',NULL,1);
+INSERT INTO `tbltable` VALUES ('BC1','Thường','Còn bàn',NULL,1),('BC2','Thường ','Còn bàn',NULL,1),('BC3','VIP','Còn bàn','',1),('TN1','VIP','Còn bàn',NULL,1),('TN2','VIP','Còn bàn','',1);
 /*!40000 ALTER TABLE `tbltable` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -319,4 +344,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-11-29 22:42:21
+-- Dump completed on 2022-12-06 17:41:57

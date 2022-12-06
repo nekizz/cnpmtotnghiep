@@ -16,6 +16,7 @@ import model.Client;
 import model.ComboDishes;
 import model.ComboOrdered;
 import model.Dishes;
+import model.DishesCombo;
 import model.DishesOrdered;
 import model.Table;
 import model.User;
@@ -147,26 +148,26 @@ public class BookingDAO extends DAO {
         return result;
     }
 
-    public static void main(String[] args) {
-        ArrayList<DishesOrdered> dod = new ArrayList<>();
-        ArrayList<ComboOrdered> co = new ArrayList<>();
-        ArrayList<BookedTable> listbt = new ArrayList<>();
-        ArrayList<Dishes> lisDishes = new ArrayList<>();
-        Dishes cd = new Dishes("KHOAILC", "Khoai lang chiên", "Còn hàng", "rrr", 70000, 0, "Ăn nhẹ");
-        lisDishes.add(cd);
-        ComboDishes cdes = new ComboDishes("COMBO1", "Combo tình yêu", "rr", 550000, 0, lisDishes, "Còn hàng");
-        ComboOrdered da = new ComboOrdered(123456, 0, 123, "rr", cdes, 3);
-        co.add(da);
-        dod.add(new DishesOrdered(3, 70000, 210000, 0, "ád", cd));
-        Table t = new Table("BC1", "VIP", "Còn bàn", "fff");
-        BookedTable bt = new BookedTable("", t, co, dod, true);
-        listbt.add(bt);
-        Client c = new Client("U123", "Minh", "Hà Nội", "01234", "hj", "long@gmail.com");
-        User u = new User(1, "longlong", "123456", "Hoàng Long", "Waiter");
-        Date date = new Date();
-        Booking b = new Booking(date, "", c, u, listbt);
-        BookingDAO dao = new BookingDAO();
-        boolean ok = dao.addBooking(b);
-        System.out.println(ok);
-    }
+//    public static void main(String[] args) {
+//        ArrayList<DishesOrdered> dod = new ArrayList<>();
+//        ArrayList<ComboOrdered> co = new ArrayList<>();
+//        ArrayList<BookedTable> listbt = new ArrayList<>();
+//        ArrayList<Dishes> lisDishes = new ArrayList<>();
+//        DishesCombo cd = new Dishes("KHOAILC", "Khoai lang chiên", "Còn hàng", "rrr", 70000, 0, "Ăn nhẹ");
+//        lisDishes.add(cd);
+//        ComboDishes cdes = new ComboDishes("COMBO1", "Combo tình yêu", "rr", 550000, 0, lisDishes, "Còn hàng");
+//        ComboOrdered da = new ComboOrdered(123456, 0, 123, "rr", cdes, 3);
+//        co.add(da);
+//        dod.add(new DishesOrdered(3, 70000, 210000, 0, "ád", cd));
+//        Table t = new Table("BC1", "VIP", "Còn bàn", "fff");
+//        BookedTable bt = new BookedTable("", t, co, dod, true);
+//        listbt.add(bt);
+//        Client c = new Client("U123", "Minh", "Hà Nội", "01234", "hj", "long@gmail.com");
+//        User u = new User(1, "longlong", "123456", "Hoàng Long", "Waiter");
+//        Date date = new Date();
+//        Booking b = new Booking(date, "", c, u, listbt);
+//        BookingDAO dao = new BookingDAO();
+//        boolean ok = dao.addBooking(b);
+//        System.out.println(ok);
+//    }
 }

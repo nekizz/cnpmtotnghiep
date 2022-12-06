@@ -10,18 +10,18 @@ public class ComboDishes {
     private String idComboDishes;
     private String name, note, status;
     private float price, discount;
-    private ArrayList<Dishes> dishes;
+    private ArrayList<DishesCombo> dishesCombo;
 
     public ComboDishes() {
     }
     
-    public ComboDishes(String idComboDishes, String name, String note, float price, float discount, ArrayList<Dishes> dishes, String status) {
+    public ComboDishes(String idComboDishes, String name, String note, float price, float discount, ArrayList<DishesCombo> dishesCombo, String status) {
         this.idComboDishes = idComboDishes;
         this.name = name;
         this.note = note;
         this.price = price;
         this.discount = discount;
-        this.dishes = dishes;
+        this.dishesCombo = dishesCombo;
         this.status = status;
     }
 
@@ -65,12 +65,12 @@ public class ComboDishes {
         this.discount = discount;
     }
 
-    public ArrayList<Dishes> getDishes() {
-        return dishes;
+    public ArrayList<DishesCombo> getDishesCombo() {
+        return dishesCombo;
     }
 
-    public void setDishes(ArrayList<Dishes> dishes) {
-        this.dishes = dishes;
+    public void setDishesCombo(ArrayList<DishesCombo> dishesCombo) {
+        this.dishesCombo = dishesCombo;
     }
 
     public String getStatus() {
