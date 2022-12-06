@@ -4,7 +4,6 @@
     Author     : ADMIN
 --%>
 
-<%@page import="dao.ComboOrderedDAO"%>
 <%@page import="model.ComboOrdered"%>
 <%@page import="model.ComboDishes"%>
 <%@page import="java.util.ArrayList"%>
@@ -44,11 +43,11 @@
                 listComboOrdered = (ArrayList<ComboOrdered>) session.getAttribute("listComboOrdered");
                 if (listComboOrdered == null) {
                     listComboOrdered = new ArrayList<>();
-                    ComboOrderedDAO dao = new ComboOrderedDAO();
-                    ComboOrdered comboOrdered = dao.createComboOrdered(cd, soLuongInt);
-                    listComboOrdered.add(comboOrdered);
-//                    float totalAmount = cd.getPrice() - cd.getDiscount();
-//                    listComboOrdered.add(new ComboOrdered(cd.getPrice(), cd.getDiscount(), totalAmount, cd.getNote(), cd, soLuongInt));
+//                    ComboOrderedDAO dao = new ComboOrderedDAO();
+//                    ComboOrdered comboOrdered = dao.createComboOrdered(cd, soLuongInt);
+//                    listComboOrdered.add(comboOrdered);
+                    float totalAmount = cd.getPrice()*soLuongInt - cd.getDiscount();
+                    listComboOrdered.add(new ComboOrdered(cd.getPrice(), cd.getDiscount(), totalAmount, cd.getNote(), cd, soLuongInt));
                     session.setAttribute("listComboOrdered", listComboOrdered);
                     response.sendRedirect(url);
                     return;
@@ -65,11 +64,11 @@
                             return;
                         }
                     }
-//                    float totalAmount = cd.getPrice() - cd.getDiscount();
-//                    listComboOrdered.add(new ComboOrdered(cd.getPrice(), cd.getDiscount(), totalAmount, cd.getNote(), cd, soLuongInt));
-                    ComboOrderedDAO dao = new ComboOrderedDAO();
-                    ComboOrdered comboOrdered = dao.createComboOrdered(cd, soLuongInt);
-                    listComboOrdered.add(comboOrdered);
+                    float totalAmount = cd.getPrice()*soLuongInt - cd.getDiscount();
+                    listComboOrdered.add(new ComboOrdered(cd.getPrice(), cd.getDiscount(), totalAmount, cd.getNote(), cd, soLuongInt));
+//                    ComboOrderedDAO dao = new ComboOrderedDAO();
+//                    ComboOrdered comboOrdered = dao.createComboOrdered(cd, soLuongInt);
+//                    listComboOrdered.add(comboOrdered);
                     session.setAttribute("listComboOrdered", listComboOrdered);
                     response.sendRedirect(url);
                     return;

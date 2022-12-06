@@ -38,25 +38,35 @@ public class ComboDishesDAOTest {
     @After
     public void tearDown() {
     }
-
-//    @Test
-//     public void searchTableByID_testChuan() {
-//         System.out.println("kiem tra tim ban");
-//         ArrayList<ComboDishes> expRes = new ArrayList<>();
-//         String maMon = "COMBO1";
-//         ComboDishesDAO dao = new ComboDishesDAO();
-//         ArrayList<ComboDishes> listComboDishes = dao.searchComboDishes(maMon);
-//         Assert.assertNotNull(listComboDishes);
-//         Assert.assertEquals(1, listComboDishes.size());
-//         Assert.assertEquals(maMon, listComboDishes.get(0).getIdComboDishes());
-//     }
-//     
-//     @Test
-//     public void searchTableByID_testNgoaiLe1() {
-//         System.out.println("kiem tra tim ban");
-//         String maMon = "ASD";
-//         ComboDishesDAO dao = new ComboDishesDAO();
-//         ArrayList<ComboDishes> listTableDAO = dao.searchComboDishes(maMon);
-//         Assert.assertNull(listTableDAO);
-//     }
+    
+    
+    @Test
+     public void getAllComboDishes_testChuan() {
+         System.out.println("kiem tra tim ban");
+         ComboDishesDAO dao = new ComboDishesDAO();
+         ArrayList<ComboDishes> listComboDishes = dao.getAllComboDishes();
+         Assert.assertNotNull(listComboDishes);
+         Assert.assertEquals(2, listComboDishes.size());
+     }
+     
+    @Test
+     public void searchComboDishesByID_testChuan() {
+         System.out.println("kiem tra tim ban");
+         ArrayList<ComboDishes> expRes = new ArrayList<>();
+         String maMon = "COMBO1";
+         ComboDishesDAO dao = new ComboDishesDAO();
+         ArrayList<ComboDishes> listComboDishes = dao.searchComboDishes(maMon);
+         Assert.assertNotNull(listComboDishes);
+         Assert.assertEquals(1, listComboDishes.size());
+         Assert.assertEquals(maMon, listComboDishes.get(0).getIdComboDishes());
+     }
+     
+     @Test
+     public void searchComboDishesByID_testNgoaiLe1() {
+         System.out.println("kiem tra tim ban");
+         String maMon = "ASD";
+         ComboDishesDAO dao = new ComboDishesDAO();
+         ArrayList<ComboDishes> listTableDAO = dao.searchComboDishes(maMon);
+         Assert.assertNull(listTableDAO);
+     }
 }
