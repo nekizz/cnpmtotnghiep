@@ -52,7 +52,7 @@ public class BookingDAO extends DAO {
                 b.setId(generatedKeys.getInt(1));
             }
             System.out.println(2);
-            
+
             for (BookedTable bt : b.getBookedTable()) {
                 ps = con.prepareStatement(sqlAddBookedTable, Statement.RETURN_GENERATED_KEYS);
                 ps.setBoolean(1, bt.getIsCheckIn());
@@ -69,7 +69,7 @@ public class BookingDAO extends DAO {
                 listDishesOrdered = bt.getDishesOrdered();
                 ArrayList<ComboOrdered> listComboOrdered = new ArrayList<>();
                 listComboOrdered = bt.getComboOrdered();
-                
+
                 if (listComboOrdered != null || listDishesOrdered != null) {
                     //insert ComboOrdered
                     if (listComboOrdered != null) {
@@ -93,7 +93,7 @@ public class BookingDAO extends DAO {
                     }
 
                     //insert DishesOrdered
-                    if (listDishesOrdered!= null) {
+                    if (listDishesOrdered != null) {
                         for (DishesOrdered dod : listDishesOrdered) {
                             ps = con.prepareStatement(sqlAddDishesOrdered, Statement.RETURN_GENERATED_KEYS);
                             ps.setFloat(1, dod.getPrice());
@@ -113,7 +113,7 @@ public class BookingDAO extends DAO {
                             System.out.println(5);
                         }
                     }
-                        
+
                     con.commit();
                 } else {
                     result = false;
@@ -146,6 +146,33 @@ public class BookingDAO extends DAO {
             }
         }
         return result;
+    }
+
+    public Booking setBooking(Booking b, Dishes d, ComboDishes cd, String maBan,int soLuong) {
+        ArrayList<BookedTable> listBookedTable = b.getBookedTable();
+        for (BookedTable bk : listBookedTable) {
+            if(bk.getTable().getIdTable().contains(maBan)){
+                if(d != null){
+                    ArrayList<DishesOrdered> listDishOrdered = bk.getDishesOrdered();
+                    if(listDishOrdered == null){
+                        listDishOrdered = new ArrayList<>();
+                    }
+                    listDishOrdered.add(new DishesOrdered(soLuong, d.getPrice(), d.getPrice()*soLuong - d.getDiscount(), d.getDiscount(), maBan, d));
+                    bk.setDishesOrdered(listDishOrdered);
+                }
+                if(cd != null){
+                    ArrayList<ComboOrdered> listComboOrdered = bk.getComboOrdered();
+                    if(listComboOrdered == null){
+                        listComboOrdered = new ArrayList<>();
+                    }
+                    listComboOrdered.add(new ComboOrdered(cd.getPrice(), cd.getDiscount(), cd.getPrice()*soLuong-cd.getDiscount(), cd.getNote(), cd, soLuong));
+                    bk.setComboOrdered(listComboOrdered);
+                }
+            }
+        }
+        b.setBookedTable(listBookedTable);
+        
+        return b;
     }
 
 //    public static void main(String[] args) {

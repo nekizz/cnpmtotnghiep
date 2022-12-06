@@ -4,6 +4,8 @@
     Author     : ADMIN
 --%>
 
+<%@page import="model.Booking"%>
+<%@page import="dao.BookingDAO"%>
 <%@page import="model.ComboOrdered"%>
 <%@page import="model.ComboDishes"%>
 <%@page import="java.util.ArrayList"%>
@@ -13,6 +15,7 @@
     String idFood = request.getParameter("idCombo");
     String soLuong = request.getParameter("soLuong");
     String maBan = (String) session.getAttribute("idTable");
+    Booking booking = (Booking) session.getAttribute("booking");
 
     if (maBan == "") {
         response.sendRedirect("gdChinhNV.jsp");
@@ -39,6 +42,8 @@
 
         for (ComboDishes cd : listComboDishes) {
             if (cd.getIdComboDishes().contains(idFood)) {
+//                BookingDAO dao = new BookingDAO();
+//                booking = dao.setBooking(booking, null, cd, maBan, soLuongInt);
                 ArrayList<ComboOrdered> listComboOrdered = null;
                 listComboOrdered = (ArrayList<ComboOrdered>) session.getAttribute("listComboOrdered");
                 if (listComboOrdered == null) {
@@ -46,7 +51,7 @@
 //                    ComboOrderedDAO dao = new ComboOrderedDAO();
 //                    ComboOrdered comboOrdered = dao.createComboOrdered(cd, soLuongInt);
 //                    listComboOrdered.add(comboOrdered);
-                    float totalAmount = cd.getPrice()*soLuongInt - cd.getDiscount();
+                    float totalAmount = cd.getPrice() * soLuongInt - cd.getDiscount();
                     listComboOrdered.add(new ComboOrdered(cd.getPrice(), cd.getDiscount(), totalAmount, cd.getNote(), cd, soLuongInt));
                     session.setAttribute("listComboOrdered", listComboOrdered);
                     response.sendRedirect(url);
@@ -57,14 +62,14 @@
                             int oldQuantity = d.getQuantity();
                             d.setQuantity(oldQuantity + soLuongInt);
                             float oldTotalAmount = d.getTotalAmount();
-                            d.setTotalAmount(soLuongInt*d.getPrice()+oldTotalAmount);
+                            d.setTotalAmount(soLuongInt * d.getPrice() + oldTotalAmount);
                             //set total mount nua
                             session.setAttribute("listComboOrdered", listComboOrdered);
                             response.sendRedirect(url);
                             return;
                         }
                     }
-                    float totalAmount = cd.getPrice()*soLuongInt - cd.getDiscount();
+                    float totalAmount = cd.getPrice() * soLuongInt - cd.getDiscount();
                     listComboOrdered.add(new ComboOrdered(cd.getPrice(), cd.getDiscount(), totalAmount, cd.getNote(), cd, soLuongInt));
 //                    ComboOrderedDAO dao = new ComboOrderedDAO();
 //                    ComboOrdered comboOrdered = dao.createComboOrdered(cd, soLuongInt);

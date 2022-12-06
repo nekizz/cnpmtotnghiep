@@ -30,11 +30,11 @@
         } else {
             listTable = dao.searchTable(maBan);
         }
-//        if (listIDBookedTableDisplay != null) {
-//            for (String t : listIDBookedTableDisplay) {
-//                listTable.removeIf(s -> s.getIdTable().contains(t));
-//            }
-//        }
+        if (listIDBookedTableDisplay != null) {
+            for (String t : listIDBookedTableDisplay) {
+                listTable.removeIf(s -> s.getIdTable().contains(t));
+            }
+        }
         session.setAttribute("listTable", listTable);
     %> 
 

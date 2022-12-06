@@ -16,9 +16,9 @@
         <title >Giao diện nhân viên</title> 
     </head> 
     <%
-        Client c = new Client("U123", "Long", "long@123", "Hà Nội", "0123", "");
+        Client c = new Client("U123", "Minh", "minh123@gmail.com", "Hà Nội", "0123", "");
         session.setAttribute("client", c);
-        User u = new User(1, "longlong", "123456", "Hoàng Long", "Waiter");
+        User u = new User(2, "long123@", "123456", "Long", "Waiter");
         session.setAttribute("user", u);
         String information = u.getName() + " - " + u.getPosition();
     %>

@@ -45,7 +45,7 @@ public class TableDAOTest {
          TableDAO dao = new TableDAO();
          ArrayList<Table> listTableDAO = dao.getAllTable();
          Assert.assertNotNull(listTableDAO);
-         Assert.assertEquals(6, listTableDAO.size());
+         Assert.assertEquals(8, listTableDAO.size());
      }
       
     
@@ -68,7 +68,7 @@ public class TableDAOTest {
          System.out.println("kiem tra tim ban");
          String maBan = "ASD";
          TableDAO dao = new TableDAO();
-         ArrayList<Table> listTableDAO = dao.searchTable(maBan);
-         Assert.assertNull(listTableDAO);
+         ArrayList<Table> listTable = dao.searchTable(maBan);
+         Assert.assertEquals(0, listTable.size());
      }
 }

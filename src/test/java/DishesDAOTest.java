@@ -46,7 +46,7 @@ public class DishesDAOTest {
          DishesDAO dao = new DishesDAO();
          ArrayList<Dishes> listDishes = dao.getAllDishes();
          Assert.assertNotNull(listDishes);
-         Assert.assertEquals(1, listDishes.size());
+         Assert.assertEquals(7, listDishes.size());
      }
 
     @Test
@@ -66,7 +66,7 @@ public class DishesDAOTest {
          System.out.println("kiem tra tim ban");
          String tenMon = "ASD";
          DishesDAO dao = new DishesDAO();
-         ArrayList<Dishes> listTableDAO = dao.searchDishes(tenMon);
-         Assert.assertNull(listTableDAO);
+         ArrayList<Dishes> listDishes = dao.searchDishes(tenMon);
+         Assert.assertEquals(0, listDishes.size());
      }
 }

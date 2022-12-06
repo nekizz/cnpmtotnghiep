@@ -95,7 +95,7 @@
                 <h4>Tổng tiền: <%=tongTien%></h4>
 
                 <div class="text-center" style="margin-top: 10px;margin-left: 60%"> 
-                    <button class="btn btn-primary" onclick="window.top.location.href = 'doThemBooking.jsp'"> Thanh toán </button>
+                    <button class="btn btn-primary" onclick="window.top.location.href = 'doThemBooking.jsp'"> Xác nhận </button>
                     <button class="btn btn-primary" onclick="window.top.location.href = 'doDatTiep.jsp'"> Đặt tiếp </button>
                 </div> 
 

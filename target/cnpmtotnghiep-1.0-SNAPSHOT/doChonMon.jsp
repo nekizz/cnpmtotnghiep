@@ -5,6 +5,8 @@
 --%>
 
 
+<%@page import="dao.BookingDAO"%>
+<%@page import="model.Booking"%>
 <%@page import="java.time.Instant"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.HashMap"%>
@@ -16,7 +18,8 @@
     String idFood = request.getParameter("idMon");
     String soLuong = request.getParameter("soLuong");
     String maBan = (String) session.getAttribute("idTable");
-
+    Booking booking = (Booking) session.getAttribute("booking");
+    
     if (maBan == "") {
         response.sendRedirect("gdChinhNV.jsp");
         return;
@@ -41,6 +44,8 @@
         }
         for (Dishes co : listDishes) {
             if (co.getIdDishes().contains(idFood)) {
+//            BookingDAO dao = new BookingDAO();
+//                booking = dao.setBooking(booking, co, null, maBan, soLuongInt);
                 ArrayList<DishesOrdered> listDishesOrdered = null;
                 listDishesOrdered = (ArrayList<DishesOrdered>) session.getAttribute("listDishesOrdered");
                 if (listDishesOrdered == null) {

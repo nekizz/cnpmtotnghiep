@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="1" failures="0" name="BookingDAOTest" time="0.003" errors="0" skipped="0">
+<testsuite tests="6" failures="0" name="BookingDAOTest" time="1.053" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="java.vm.version" value="17.0.4.1+1-LTS-2"/>
@@ -15,11 +15,11 @@
     <property name="user.script" value=""/>
     <property name="user.country" value="US"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="test" value="BookingDAOTest"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
     <property name="user.dir" value="C:\Users\ADMIN\OneDrive\Documents\NetBeansProjects\cnpmtotnghiep"/>
     <property name="java.vm.compressedOopsMode" value="Zero based"/>
     <property name="java.runtime.version" value="17.0.4.1+1-LTS-2"/>
-    <property name="netbeans.deploy" value="true"/>
     <property name="os.arch" value="amd64"/>
     <property name="java.io.tmpdir" value="C:\Users\ADMIN\AppData\Local\Temp\"/>
     <property name="line.separator" value="
@@ -42,13 +42,11 @@
     <property name="user.timezone" value="Asia/Saigon"/>
     <property name="file.encoding" value="UTF-8"/>
     <property name="java.specification.version" value="17"/>
-    <property name="exec.appArgs" value=""/>
     <property name="user.name" value="ADMIN"/>
-    <property name="exec.vmArgs" value=""/>
     <property name="java.class.path" value="C:\Program Files\NetBeans-15\netbeans\java\maven\boot\plexus-classworlds-2.6.0.jar"/>
     <property name="java.vm.specification.version" value="17"/>
     <property name="sun.arch.data.model" value="64"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dnetbeans.deploy=true -Dexec.vmArgs= -Dexec.appArgs= -Dmaven.ext.class.path=C:\Program Files\NetBeans-15\netbeans\java\maven-nblib\netbeans-eventspy.jar -Dfile.encoding=UTF-8 package"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dtest=BookingDAOTest -Dmaven.ext.class.path=C:\Program Files\NetBeans-15\netbeans\java\maven-nblib\netbeans-eventspy.jar -Dfile.encoding=UTF-8 surefire:test"/>
     <property name="java.home" value="C:\Program Files\Java\jdk-17.0.4.1"/>
     <property name="user.language" value="en"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
@@ -65,5 +63,10 @@
     <property name="sun.cpu.endian" value="little"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="BookingDAOTest" name="addBooking_testChuan" time="0.003"/>
+  <testcase classname="BookingDAOTest" name="addBooking_testNgoaiLe1" time="0.555"/>
+  <testcase classname="BookingDAOTest" name="addBooking_testNgoaiLe2" time="0.493"/>
+  <testcase classname="BookingDAOTest" name="addBooking_testNgoaiLe3" time="0.002"/>
+  <testcase classname="BookingDAOTest" name="addBooking_testNgoaiLe4" time="0.002"/>
+  <testcase classname="BookingDAOTest" name="addBooking_testNgoaiLe5" time="0.001"/>
+  <testcase classname="BookingDAOTest" name="addBooking_testChuan" time="0"/>
 </testsuite>

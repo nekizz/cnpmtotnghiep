@@ -46,7 +46,7 @@ public class ComboDishesDAOTest {
          ComboDishesDAO dao = new ComboDishesDAO();
          ArrayList<ComboDishes> listComboDishes = dao.getAllComboDishes();
          Assert.assertNotNull(listComboDishes);
-         Assert.assertEquals(2, listComboDishes.size());
+         Assert.assertEquals(5, listComboDishes.size());
      }
      
     @Test
@@ -66,7 +66,7 @@ public class ComboDishesDAOTest {
          System.out.println("kiem tra tim ban");
          String maMon = "ASD";
          ComboDishesDAO dao = new ComboDishesDAO();
-         ArrayList<ComboDishes> listTableDAO = dao.searchComboDishes(maMon);
-         Assert.assertNull(listTableDAO);
+         ArrayList<ComboDishes> listComboDishes = dao.searchComboDishes(maMon);
+         Assert.assertEquals(0, listComboDishes.size());
      }
 }
