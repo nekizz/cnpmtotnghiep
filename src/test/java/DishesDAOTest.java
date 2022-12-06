@@ -39,25 +39,25 @@ public class DishesDAOTest {
     @After
     public void tearDown() {
     }
-
-    @Test
-     public void searchTableByID_testChuan() {
-         System.out.println("kiem tra tim ban");
-         ArrayList<Dishes> expRes = new ArrayList<>();
-         String maMon = "KHOAITC";
-         DishesDAO dao = new DishesDAO();
-         ArrayList<Dishes> listDishes = dao.searchDishes(maMon);
-         Assert.assertNotNull(listDishes);
-         Assert.assertEquals(1, listDishes.size());
-         Assert.assertEquals(maMon, listDishes.get(0).getIdDishes());
-     }
-     
-     @Test
-     public void searchTableByID_testNgoaiLe1() {
-         System.out.println("kiem tra tim ban");
-         String tenMon = "ASD";
-         DishesDAO dao = new DishesDAO();
-         ArrayList<Dishes> listTableDAO = dao.searchDishes(tenMon);
-         Assert.assertNull(listTableDAO);
-     }
+//
+//    @Test
+//     public void searchTableByID_testChuan() {
+//         System.out.println("kiem tra tim ban");
+//         ArrayList<Dishes> expRes = new ArrayList<>();
+//         String maMon = "KHOAITC";
+//         DishesDAO dao = new DishesDAO();
+//         ArrayList<Dishes> listDishes = dao.searchDishes(maMon);
+//         Assert.assertNotNull(listDishes);
+//         Assert.assertEquals(1, listDishes.size());
+//         Assert.assertEquals(maMon, listDishes.get(0).getIdDishes());
+//     }
+//     
+//     @Test
+//     public void searchTableByID_testNgoaiLe1() {
+//         System.out.println("kiem tra tim ban");
+//         String tenMon = "ASD";
+//         DishesDAO dao = new DishesDAO();
+//         ArrayList<Dishes> listTableDAO = dao.searchDishes(tenMon);
+//         Assert.assertNull(listTableDAO);
+//     }
 }

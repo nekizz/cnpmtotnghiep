@@ -39,26 +39,26 @@ public class TableDAOTest {
     public void tearDown() {
     }
 
-     @Test
-     public void searchTableByID_testChuan() {
-         System.out.println("kiem tra tim ban");
-         ArrayList<Table> expRes = new ArrayList<>();
-         String maBan = "BC1";
-         Table t = new Table("BC1", "VIP", "Còn bàn", null);
-         expRes.add(t);
-         TableDAO dao = new TableDAO();
-         ArrayList<Table> listTableDAO = dao.searchTable(maBan);
-         Assert.assertNotNull(listTableDAO);
-         Assert.assertEquals(1, listTableDAO.size());
-         Assert.assertEquals(maBan, listTableDAO.get(0).getIdTable());
-     }
-     
-     @Test
-     public void searchTableByID_testNgoaiLe1() {
-         System.out.println("kiem tra tim ban");
-         String maBan = "ASD";
-         TableDAO dao = new TableDAO();
-         ArrayList<Table> listTableDAO = dao.searchTable(maBan);
-         Assert.assertNull(listTableDAO);
-     }
+//     @Test
+//     public void searchTableByID_testChuan() {
+//         System.out.println("kiem tra tim ban");
+//         ArrayList<Table> expRes = new ArrayList<>();
+//         String maBan = "BC1";
+//         Table t = new Table("BC1", "VIP", "Còn bàn", null);
+//         expRes.add(t);
+//         TableDAO dao = new TableDAO();
+//         ArrayList<Table> listTableDAO = dao.searchTable(maBan);
+//         Assert.assertNotNull(listTableDAO);
+//         Assert.assertEquals(1, listTableDAO.size());
+//         Assert.assertEquals(maBan, listTableDAO.get(0).getIdTable());
+//     }
+//     
+//     @Test
+//     public void searchTableByID_testNgoaiLe1() {
+//         System.out.println("kiem tra tim ban");
+//         String maBan = "ASD";
+//         TableDAO dao = new TableDAO();
+//         ArrayList<Table> listTableDAO = dao.searchTable(maBan);
+//         Assert.assertNull(listTableDAO);
+//     }
 }

@@ -19,14 +19,13 @@ public class ComboDishesDAO extends DAO{
     }
 
     public ArrayList<ComboDishes> getAllComboDishes(){
-        ArrayList<ComboDishes> kq = null;
+        ArrayList<ComboDishes> kq = new ArrayList<ComboDishes>();
         String sql = "select * from tblcombodishes"; 
         try{
             CallableStatement cs = con.prepareCall(sql);
             ResultSet rs = cs.executeQuery();
              
             while(rs.next()){
-                if(kq == null) kq = new ArrayList<ComboDishes>();
                 ComboDishes cb = new ComboDishes();
                 
                 cb.setIdComboDishes(rs.getString("IDComboDishes"));
@@ -46,7 +45,7 @@ public class ComboDishesDAO extends DAO{
     }
     
     public ArrayList<ComboDishes> searchComboDishes(String idComboDishes){
-        ArrayList<ComboDishes> kq = null;
+        ArrayList<ComboDishes> kq = new ArrayList<ComboDishes>();
         String sql = "select * from tblcombodishes where IdComboDishes like ?"; 
         try{
             CallableStatement cs = con.prepareCall(sql);
@@ -54,7 +53,6 @@ public class ComboDishesDAO extends DAO{
             ResultSet rs = cs.executeQuery();
              
             while(rs.next()){
-                if(kq == null) kq = new ArrayList<ComboDishes>();
                 ComboDishes cb = new ComboDishes();
                 
                 cb.setIdComboDishes(rs.getString("IDComboDishes"));

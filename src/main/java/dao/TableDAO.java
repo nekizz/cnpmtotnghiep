@@ -21,13 +21,12 @@ public class TableDAO extends DAO{
     }
 
     public ArrayList<Table> getAllTable() {
-        ArrayList<Table> kq = null;
+        ArrayList<Table> kq = new ArrayList<>();;
         String sql = "select * from tbltable"; //su dung stored procedure
         try{
             CallableStatement cs = con.prepareCall(sql);
             ResultSet rs = cs.executeQuery();
             while(rs.next()){
-                if(kq == null) kq = new ArrayList<>();
                 Table tb = new Table();
                 tb.setIdTable(rs.getString("IDTable"));
                 tb.setType(rs.getString("Type"));
@@ -43,7 +42,7 @@ public class TableDAO extends DAO{
     }
 
     public ArrayList<Table> searchTable(String idTable) {
-        ArrayList<Table> kq = null;
+        ArrayList<Table> kq = new ArrayList<>();
         String sql = "select * from tbltable where IDTable like ?"; //su dung stored procedure
         try{
 
@@ -51,7 +50,6 @@ public class TableDAO extends DAO{
             cs.setString(1, "%"+idTable+"%");
             ResultSet rs = cs.executeQuery();
             while(rs.next()){
-                if(kq == null) kq = new ArrayList<>();
                 Table tb = new Table();
                 tb.setIdTable(rs.getString("IDTable"));
                 tb.setType(rs.getString("Type"));
