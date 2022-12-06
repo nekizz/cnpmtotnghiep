@@ -4,6 +4,7 @@
     Author     : ADMIN
 --%>
 
+<%@page import="java.util.function.Consumer"%>
 <%@page import="model.DishesOrdered"%>
 <%@page import="model.ComboOrdered"%>
 <%@page import="dao.DishesDAO"%>
@@ -17,12 +18,15 @@
         <title>Giao diện xác nhận</title> 
     </head>
 
-    <%  int count =0 ;
+    <%  int count = 0;
         String maBan = request.getParameter("idTable");
         if (maBan == "") {
             response.sendRedirect("gdChinhNV.jsp");
             return;
         }
+        float tongTien = 0;
+        float tong1 = 0;
+        float tong2 = 0;
         String url = "gdChonMon.jsp?idTable=" + maBan;
         ArrayList<ComboOrdered> listComboOrdered = (ArrayList<ComboOrdered>) session.getAttribute("listComboOrdered");
         ArrayList<DishesOrdered> listDishesOrdered = (ArrayList<DishesOrdered>) session.getAttribute("listDishesOrdered");
@@ -30,7 +34,17 @@
             response.sendRedirect(url);
             return;
         }
-
+        if (listDishesOrdered != null) {
+            for (DishesOrdered d : listDishesOrdered) {
+                tong1 += d.getTotalAmount();
+            }
+        }
+        if (listComboOrdered != null) {
+            for (DishesOrdered d : listDishesOrdered) {
+                tong2 += d.getTotalAmount();
+            }
+        }
+        tongTien = tong1 + tong2;
     %> 
 
     <body> 
@@ -59,9 +73,9 @@
                             <td><%=listDishesOrdered.get(i).getTotalAmount()%></td>
                         </tr> 
                         <%
-                            count++;
-                        }%>
-                        
+                                count++;
+                            }%>
+
                         <%  if (listComboOrdered != null)
                                 for (int i = 0; i < listComboOrdered.size(); i++) {
                         %> 
@@ -73,11 +87,12 @@
                             <td><%=listComboOrdered.get(i).getTotalAmount()%></td>
                         </tr> 
                         <%
-                            count++;
-                        }%>
-                        
+                                count++;
+                            }%>
+
                     </tbody> 
                 </table>
+                <h4>Tổng tiền: <%=tongTien%></h4>
 
                 <div class="text-center" style="margin-top: 10px;margin-left: 60%"> 
                     <button class="btn btn-primary" onclick="window.top.location.href = 'doThemBooking.jsp'"> Thanh toán </button>

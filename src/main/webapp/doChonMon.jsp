@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="dao.DishesOrderedDAO"%>
 <%@page import="java.time.Instant"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.HashMap"%>
@@ -12,7 +13,7 @@
 <%@page import="model.Dishes"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%  
+<%
     String idFood = request.getParameter("idMon");
     String soLuong = request.getParameter("soLuong");
     String maBan = (String) session.getAttribute("idTable");
@@ -27,7 +28,6 @@
         response.sendRedirect(url);
         return;
     }
-
 
     String isCombo = (String) session.getAttribute("isCombo");
     if (isCombo == null) {
@@ -46,8 +46,11 @@
                 listDishesOrdered = (ArrayList<DishesOrdered>) session.getAttribute("listDishesOrdered");
                 if (listDishesOrdered == null) {
                     listDishesOrdered = new ArrayList<>();
-                    float totalAmount = co.getPrice() - co.getDiscount();
-                    listDishesOrdered.add(new DishesOrdered(soLuongInt, co.getPrice(), totalAmount, co.getDiscount(), co.getDescription(), co));
+//                    float totalAmount = co.getPrice() - co.getDiscount();
+                    DishesOrderedDAO dao = new DishesOrderedDAO();
+                    DishesOrdered dishesOrdered = dao.createDishesOrdered(co, soLuongInt);
+                    listDishesOrdered.add(dishesOrdered);
+//                    listDishesOrdered.add(new DishesOrdered(soLuongInt, co.getPrice(), totalAmount, co.getDiscount(), co.getDescription(), co));
                     session.setAttribute("listDishesOrdered", listDishesOrdered);
                     response.sendRedirect(url);
                     return;
@@ -56,14 +59,19 @@
                         if (d.getDishes().getIdDishes().equals(co.getIdDishes())) {
                             int oldQuantity = d.getQuantity();
                             d.setQuantity(oldQuantity + soLuongInt);
+                            float oldTotalAmount = d.getTotalAmount();
+                            d.setTotalAmount(soLuongInt*d.getPrice()+oldTotalAmount);
                             //set total mount nua
                             session.setAttribute("listDishesOrdered", listDishesOrdered);
                             response.sendRedirect(url);
                             return;
                         }
                     }
-                    float totalAmount = co.getPrice() - co.getDiscount();
-                    listDishesOrdered.add(new DishesOrdered(soLuongInt, co.getPrice(), totalAmount, co.getDiscount(), co.getDescription(), co));
+//                    float totalAmount = co.getPrice() - co.getDiscount();
+//                    listDishesOrdered.add(new DishesOrdered(soLuongInt, co.getPrice(), totalAmount, co.getDiscount(), co.getDescription(), co));
+                    DishesOrderedDAO dao = new DishesOrderedDAO();
+                    DishesOrdered dishesOrdered = dao.createDishesOrdered(co, soLuongInt);
+                    listDishesOrdered.add(dishesOrdered);
                     session.setAttribute("listDishesOrdered", listDishesOrdered);
                     response.sendRedirect(url);
                     return;
